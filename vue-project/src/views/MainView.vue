@@ -18,7 +18,7 @@
             </v-list>
         </v-navigation-drawer>
 
-        <!-- <v-navigation-drawer color="surface">
+        <v-navigation-drawer color="surface">
           <v-list>
             <v-list-item title="Drawer left"></v-list-item>
           </v-list>
@@ -28,17 +28,21 @@
           <v-list>
             <v-list-item title="Drawer right"></v-list-item>
           </v-list>
-        </v-navigation-drawer> -->
+        </v-navigation-drawer>
 
-        <!-- <v-main style="min-height: 300px;"></v-main> -->
+        <v-main style="min-height: 300px;"></v-main>
     </v-layout>
 </v-card>
+
+  <!-- <LoginView/> -->
 </template>
 
 <script>
+import LoginView from './LoginView.vue'
 // import { mdiAccount } from '@mdi/js'
 
   export default {
+  components: { LoginView },
     data () {
       return {
         drawer: true,
