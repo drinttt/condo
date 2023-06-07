@@ -6,7 +6,7 @@
 
         <!-- Information -->
         <v-btn color="white">
-            Information
+            <v-icon icon="mdi-domain"></v-icon>&nbsp; Information
 
             <v-menu activator="parent" open-on-hover>
                 <v-list>
@@ -20,7 +20,7 @@
         </v-btn>
         <!-- Invoice -->
         <v-btn color="white">
-            Invoice
+            <v-icon icon="mdi-receipt-text-edit-outline"></v-icon>&nbsp; Invoice
 
             <v-menu activator="parent" open-on-hover>
                 <v-list>
@@ -34,7 +34,7 @@
         </v-btn>
         <!-- Management and Security Systems -->
         <v-btn color="white">
-            Management&Security Systems
+            <v-icon icon="mdi-security"></v-icon>&nbsp; Management&Security Systems
 
             <v-menu activator="parent" open-on-hover>
                 <v-list>
@@ -51,17 +51,28 @@
         <v-spacer />
 
     </v-app-bar>
-    <br /><br /><br /><br /><br />
+    <br /><br /><br /><br />
 
-    <!-- Import - Download -->
-    <h1 class="topicinfor">ข้อมูลของแต่ละห้อง</h1>
+    <!-- Import - Download - Create -->
+    <div class="center">
+        <v-row style="display: flex; justify-content: right; max-width: 80%;" class="center">
+            <v-col cols="12" md="3" class="mr-16 justify-end" max-width="400px">
+                <!-- cols="6" md="5" class="mx-9" -->
+                <v-card>
+                    <v-text-field v-model="searchTerm" :loading="loading" density="compact" variant="solo" label="Search .." append-inner-icon="mdi-magnify" single-line hide-details @click:append-inner="onClick" class="text-field-right"></v-text-field>
+                </v-card>
+            </v-col>
+        </v-row>
+    </div>
+
+    <h1 class="topicinfor">รายละเอียดข้อมูลของแต่ละห้อง</h1>
     <v-row class="import-download">
-        <v-btn>import <svg-icon type="mdi" :path="import_icon"></svg-icon>
-        </v-btn>&nbsp;&nbsp;&nbsp;
-        <v-btn>Download <svg-icon type="mdi" :path="download_icon"></svg-icon>
+        <v-btn class="mx-1">import <v-icon icon="mdi-import"></v-icon>
         </v-btn>
-    </v-row><br/>
-    
+        <v-btn @click="RoomCreate()" class="mx-1">Create <v-icon icon="mdi-pencil-outline"></v-icon>
+        </v-btn>
+    </v-row><br />
+
     <!-- table -->
     <div class="center">
         <v-table fixed-header height="700px" class="table-container">
@@ -83,16 +94,20 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, index) in rooms" :key="item.name">
+                <tr v-for="(room, index) in FilterRooms" :key="room.name">
                     <td class="text-center">{{ index + 1 }}</td>
-                    <td class="text-center">{{ item.room_number }}</td>
-                    <td class="text-left">{{ item.name }}</td>
-                    <td class="text-left">{{ item.tel }}</td>
-                    <td class="text-left"><svg-icon type="mdi" :path="dotVertical"></svg-icon></td>
+                    <td class="text-center">{{ room.room_number }}</td>
+                    <td class="text-left">{{ room.name }}</td>
+                    <td class="text-left">{{ room.tel }}</td>
+                    <td class="text-center">
+                        <v-btn size="x-small">edit</v-btn>
+                    </td>
                 </tr>
             </tbody>
         </v-table>
     </div>
+
+    <router-view></router-view>
 </v-app>
 </template>
 
@@ -101,7 +116,8 @@ import SvgIcon from '@jamescoyle/vue-icon';
 import {
     mdiImport,
     mdiDownloadCircleOutline,
-    mdiDotsVertical
+    mdiDotsVertical,
+    mdiPencilOutline
 } from '@mdi/js';
 
 export default {
@@ -109,36 +125,43 @@ export default {
         SvgIcon
     },
     data: () => ({
+        // navbar
         informations: [{
                 title: 'ข้อมูลของแต่ละห้อง',
                 link: "rooms"
             },
             {
-                title: 'บันทึกค่าใช้จ่ายในตึก'
+                title: 'บันทึกค่าใช้จ่ายในตึก',
+                link: "expenses"
             },
             {
-                title: 'บันทึกสาธารณูปโภคอัตโนมัติ'
+                title: 'บันทึกสาธารณูปโภคอัตโนมัติ',
+                link: "utilities"
             },
             {
-                title: 'บันทึกการใช้โทรศัพท์อัตโนมัติ'
+                title: 'บันทึกการใช้โทรศัพท์อัตโนมัติ',
+                link: "autophones"
             },
         ],
         invoices: [{
                 title: 'ใบแจ้งหนี้',
-                link: 'invoice'
+                link: 'invoices'
             },
             {
                 title: 'ระบบผ่อนชำระ',
-                link: 'jj'
+                link: 'installments'
             },
         ],
         secures: [{
-                title: 'ระบบระดับผู้ใช้งาน log เก็บข้อมูล'
+                title: 'ระบบระดับผู้ใช้งาน log เก็บข้อมูล',
+                link: 'userloglevel'
             },
             {
-                title: 'ระบบเชื่อมโปรแกรมบัญชี'
+                title: 'ระบบเชื่อมโปรแกรมบัญชี',
+                link: 'accounting'
             },
         ],
+        // Infor_room
         rooms: [{
                 room_number: "001",
                 name: "Harry Riddle",
@@ -210,11 +233,24 @@ export default {
                 tel: "0667654327"
             },
         ],
-        // icon
-        import_icon: mdiImport,
-        download_icon: mdiDownloadCircleOutline,
-        dotVertical: mdiDotsVertical,
+        searchTerm: ''
     }),
+    methods: {
+        RoomCreate() {
+            this.$router.push('/roomcreate')
+        }
+    },
+    computed: {
+        FilterRooms(){
+            return this.rooms.filter( room=> {
+                return (
+                    room.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+                    room.room_number.toString().includes(this.searchTerm) ||
+                    room.tel.toLowerCase().includes(this.searchTerm.toLowerCase())
+                );
+            })
+        }
+    }
 }
 </script>
 
@@ -229,17 +265,25 @@ export default {
     display: flex;
     justify-content: center;
 }
+
 .import-download {
-  display: flex;
-  justify-content: flex-end;
-  max-width: 85%;
-}
-.topicinfor {
-  display: flex;
-  justify-content: flex-end;
-  max-width: 34%;
+    display: flex;
+    justify-content: flex-end;
+    max-width: 85%;
 }
 
+.search {
+    display: flex;
+    justify-content: flex-end;
+    max-width: 85%;
+}
+
+.topicinfor {
+    display: flex;
+    justify-content: flex-start;
+    /* max-width: 45%; */
+    margin-left: 15%;
+}
 
 .dropdown {
     text-decoration: none;

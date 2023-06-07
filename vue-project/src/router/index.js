@@ -33,10 +33,45 @@ const router = createRouter({
       component: () => import('../views/Rooms.vue')
     },
     {
-      path: '/invoice',
-      name: 'invoice',
-      component: () => import('../views/Invoice.vue')
-    }
+      path: '/expenses',
+      name: 'expenses',
+      component: () => import('../views/Expenses.vue')
+    },
+    {
+      path: '/utilities',
+      name: 'utilities',
+      component: () => import('../views/Utilities.vue')
+    },
+    {
+      path: '/autophones',
+      name: 'autophones',
+      component: () => import('../views/AutoPhones.vue')
+    },
+    {
+      path: '/invoices',
+      name: 'invoices',
+      component: () => import('../views/Invoices.vue')
+    },
+    {
+      path: '/installments',
+      name: 'installments',
+      component: () => import('../views/Installments.vue')
+    },
+    {
+      path: '/userloglevel',
+      name: 'userloglevel',
+      component: () => import('../views/Userloglevel.vue')
+    },
+    {
+      path: '/accounting',
+      name: 'accounting',
+      component: () => import('../views/Accounting.vue')
+    },
+    {
+      path: '/roomcreate',
+      name: 'roomcreate',
+      component: () => import('../views/RoomCreate.vue')
+    },
   ]
 })
 

@@ -12,6 +12,7 @@
                         <v-col cols="12" class="justify-center">
                             <v-text-field
                             label="Email"
+                            prepend-inner-icon="mdi-email-outline"
                             type="email"
                             v-model="Email"
                             variant="outlined"
@@ -22,6 +23,7 @@
                         </v-text-field><br/>
                         <v-text-field
                             label="Username"
+                            prepend-inner-icon="mdi-account"
                             type="text"
                             v-model="loginName"
                             variant="outlined"
@@ -31,13 +33,29 @@
                         >
                         </v-text-field><br/>
                         <v-text-field
-                            type="password"
-                            v-model="Password"
+                            :type="show1 ? 'text' : 'password'"
+                            prepend-inner-icon="mdi-lock"
+                            v-model="Password1"
                             variant="outlined"
                             label="Password"
                             :rules="passwordRules"
                             required
                             class="headlogin"
+                            :append-inner-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" 
+                            @click:append-inner="show1 = !show1"
+                        >
+                        </v-text-field><br/>
+                        <v-text-field
+                            :type="show1 ? 'text' : 'password'"
+                            prepend-inner-icon="mdi-lock"
+                            v-model="Password2"
+                            variant="outlined"
+                            label="Confirm Password"
+                            :rules="passwordRules"
+                            required
+                            class="headlogin"
+                            :append-inner-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" 
+                            @click:append-inner="show1 = !show1"
                         >
                         </v-text-field>
                     </v-col>
@@ -75,7 +93,8 @@
                 // return 'Username must be required.'
                 // },
             ],
-            Password: null,
+            Password1: null,
+            Password2: null,
             passwordRules: [
                 value => {
                 if (value?.length > 1) return true
@@ -91,7 +110,16 @@
                 return 'Email must be required.'
                 },
             ],
-            form: null
+            form: null,
+
+            show1: false,
+            show2: true,
+            password: 'Password',
+            rules: {
+                required: value => !!value || 'Required.',
+                min: v => v.length >= 8 || 'Min 8 characters',
+                emailMatch: () => (`The email and password you entered don't match`),
+            },
         })
     }
     </script>
