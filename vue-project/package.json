@@ -22,7 +22,8 @@
     "pinia": "^2.0.36",
     "vue": "^3.3.2",
     "vue-router": "^4.2.0",
-    "vuetify": "^3.3.2"
+    "vue3-easy-data-table": "^1.5.42",
+    "vuetify": "^3.3.3"
   },
   "devDependencies": {
     "@mdi/font": "^7.2.96",

@@ -1,8 +1,8 @@
 <script setup>
 // import { RouterLink, RouterView } from 'vue-router'
-import LoginView from './views/LoginView.vue';
-import MainView from './views/MainView.vue';
-import RegisterView from './views/RegisterView.vue';
+// import LoginView from './views/LoginView.vue';
+// import MainView from './views/MainView.vue';
+// import RegisterView from './views/RegisterView.vue';
 // import HelloWorld from './components/HelloWorld.vue'
 </script>
 

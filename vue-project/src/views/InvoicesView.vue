@@ -55,35 +55,80 @@
         </v-app-bar>
         <br /><br /><br /><br />
     
-        <h1 class="topicinfor">บันทึกการใช้โทรศัพท์อัตโนมัติ</h1>
+        <!-- Import - Download - Create -->
+        <!-- <div class="center">
+            <v-row style="display: flex; justify-content: right; max-width: 80%;" class="center">
+                <v-col cols="12" md="3" class="mr-16 justify-end" max-width="400px">
+                    <v-card>
+                        <v-text-field v-model="searchTerm" :loading="loading" density="compact" variant="solo" label="Search .." append-inner-icon="mdi-magnify" single-line hide-details @click:append-inner="onClick" class="text-field-right"></v-text-field>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </div> -->
+    
+        <h1 class="topicinfor">ใบแจ้งหนี้/ใบเสร็จรับเงิน</h1>
+        <!-- <v-row class="import-download">
+            <v-btn class="mx-1">import <v-icon icon="mdi-import"></v-icon>
+            </v-btn>
+            <v-btn @click="RoomCreate()" class="mx-1">Create <v-icon icon="mdi-pencil-outline"></v-icon>
+            </v-btn>
+        </v-row><br /> -->
+    
+        <!-- table -->
+        <!-- <div class="center">
+            <v-table fixed-header height="700px" class="table-container">
+                <thead>
+                    <tr>
+                        <th class="text-center bg-indigo-accent-1">
+                            ลำดับที่
+                        </th>
+                        <th class="text-center bg-indigo-accent-1">
+                            เลขที่ห้อง
+                        </th>
+                        <th class="text-left bg-indigo-accent-1">
+                            ชื่อ-สกุล เจ้าของห้อง
+                        </th>
+                        <th class="text-left bg-indigo-accent-1">
+                            เบอร์โทร
+                        </th>
+                        <th class="text-left bg-indigo-accent-1"> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(room, index) in FilterRooms" :key="room.name">
+                        <td class="text-center">{{ index + 1 }}</td>
+                        <td class="text-center">{{ room.room_number }}</td>
+                        <td class="text-left">{{ room.name }}</td>
+                        <td class="text-left">{{ room.tel }}</td>
+                        <td class="text-center">
+                            <v-btn size="x-small">edit</v-btn>
+                        </td>
+                    </tr>
+                </tbody>
+            </v-table>
+        </div> -->
     
         <v-container grid-list-md>
             <v-data-table :items-per-page="itemsPerPage" :search="search" :headers="headers" :items="rooms" :sort-by="[{ key: 'rooms', order: 'asc' }]" class="elevation-1">
                 <template v-slot:top>
                     <v-toolbar flat>
-                        <v-toolbar-title>Automatic phone call information</v-toolbar-title>
+                        <v-toolbar-title>Utilities</v-toolbar-title>
                         <v-divider class="mx-4" inset vertical></v-divider>
                         <!-- <v-select attach :items="items" placeholder="select from items"></v-select> -->
                         <v-spacer></v-spacer>
     
                         <!-- seach -->
-                        <!-- <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field> -->
-                        <div class="v-input my-custom-input">
-                            <input v-model="search" class="v-input__control" placeholder="Search">
-                            <span class="v-input__append-inner">
-                                <v-icon>mdi-magnify</v-icon>
-                            </span>
-                        </div>
+                        <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
     
                         <v-dialog v-model="dialog" max-width="800px">
                             <template v-slot:activator="{ props }">
-                                <v-btn color="primary" dark class="mb-1 mt-1" v-bind="props">
+                                <v-btn color="primary" dark class="mb-2" v-bind="props">
                                     Create
                                 </v-btn>
                             </template>
                             <!-- Edit/Delete -->
                             <v-card>
-                                <v-card-title class="my-2">
+                                <v-card-title>
                                     <span class="text-h5">{{ formTitle }}</span>
                                 </v-card-title>
     
@@ -104,14 +149,14 @@
                                                 <v-text-field v-model="editedItem.tel" label="Tel."></v-text-field>
                                             </v-col>
                                             <!-- <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                                                </v-col> -->
+                                                <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
+                                            </v-col> -->
                                         </v-row>
                                     </v-container>
                                 </v-card-text>
@@ -144,10 +189,13 @@
                 </template>
                 <template v-slot:item.actions="{ item }">
                     <!-- <v-btn size="small" class="mx-1 text-left" @click="editItem(item.raw)" color="success">edit</v-btn>
-                        <v-btn size="small" color="error" @click="deleteItem(item.raw)">delete</v-btn> -->
-                        <v-icon size="small" class="me-2" @click="editItem(item.raw)">
-                            mdi-dots-vertical
-                        </v-icon>
+                    <v-btn size="small" color="error" @click="deleteItem(item.raw)">delete</v-btn> -->
+                    <v-icon size="small" class="me-2" @click="editItem(item.raw)">
+                        mdi-dots-vertical
+                    </v-icon>
+                    <!-- <v-icon size="small" @click="deleteItem(item.raw)">
+                        mdi-delete
+                    </v-icon> -->
                 </template>
             </v-data-table>
         </v-container><br />
@@ -156,13 +204,10 @@
     </v-app>
     </template>
     
-        
-        
     <script>
     import {
         VDataTable
     } from 'vuetify/labs/VDataTable'
-    // import SvgIcon from '@jamescoyle/vue-icon';
     
     export default {
         components: {
@@ -221,16 +266,86 @@
                     link: 'accounting'
                 },
             ],
-            // searchTerm: '',
-    
-            //vDataTable
+            // Infor_room
+            // rooms: [{
+            //         room_number: "001",
+            //         name: "Harry Riddle",
+            //         tel: "0835678543"
+            //     },
+            //     {
+            //         room_number: "002",
+            //         name: "Ron Potter",
+            //         tel: "0667654327"
+            //     },
+            //     {
+            //         room_number: "003",
+            //         name: "Anna Yeeha",
+            //         tel: "0835678543"
+            //     },
+            //     {
+            //         room_number: "004",
+            //         name: "Spice Girl",
+            //         tel: "0667654327"
+            //     },
+            //     {
+            //         room_number: "005",
+            //         name: "Taylor perry",
+            //         tel: "0835678543"
+            //     },
+            //     {
+            //         room_number: "006",
+            //         name: "Robert Prattrick",
+            //         tel: "0667654327"
+            //     },
+            //     {
+            //         room_number: "007",
+            //         name: "Irene Rvv",
+            //         tel: "0835678543"
+            //     },
+            //     {
+            //         room_number: "010",
+            //         name: "Suelgi Rvv",
+            //         tel: "0667654327"
+            //     },
+            //     {
+            //         room_number: "008",
+            //         name: "Wendy Rvv",
+            //         tel: "0667654327"
+            //     },
+            //     {
+            //         room_number: "009",
+            //         name: "Joy Rvv",
+            //         tel: "0835678543"
+            //     },
+            //     {
+            //         room_number: "011",
+            //         name: "Yeri Rvv",
+            //         tel: "0835678543"
+            //     },
+            //     {
+            //         room_number: "012",
+            //         name: "Taeyoen Girl",
+            //         tel: "0667654327"
+            //     },
+            //     {
+            //         room_number: "013",
+            //         name: "Wonyong Ive",
+            //         tel: "0835678543"
+            //     },
+            //     {
+            //         room_number: "014",
+            //         name: "Ruby Jane",
+            //         tel: "0667654327"
+            //     },
+            // ],
+            searchTerm: '',
             itemsPerPage: 8,
             dialog: false,
             dialogDelete: false,
     
             headers: [{
                     title: 'Floor',
-                    key: 'floors', //cal
+                    key: 'floors' //cal
                 },
                 {
                     title: 'Room',
@@ -452,7 +567,7 @@
             //     })
             // },
             formTitle() {
-                return this.editedIndex === -1 ? 'Create Autumatic phone ' : 'Edit Room'
+                return this.editedIndex === -1 ? 'Create Room' : 'Edit Room'
             },
         },
         watch: {
@@ -468,8 +583,7 @@
         },
     }
     </script>
-        
-        
+    
     <style>
     .table-container {
         width: 70%;
@@ -489,14 +603,14 @@
     }
     
     /* .search {
-            display: flex;
-            justify-content: flex-end;
-            max-width: 85%;
-        } */
+        display: flex;
+        justify-content: flex-end;
+        max-width: 85%;
+    } */
     
     .topicinfor {
-        display: flex;
-        justify-content: flex-start;
+        /* display: flex; */
+        /* justify-content: flex-start; */
         /* max-width: 45%; */
         margin-left: 10%;
     }
@@ -504,28 +618,6 @@
     .dropdown {
         text-decoration: none;
         color: rgb(94, 94, 94);
-    }
-    
-    /* search */
-    .my-custom-input {
-        display: flex;
-        align-items: center;
-        border: 1px solid rgba(0, 0, 0, 0.26);
-        border-radius: 4px;
-        padding: 4px;
-        height: 36px;
-        width: 20px;
-    }
-    
-    .my-custom-input input {
-        border: none;
-        outline: none;
-        flex-grow: 1;
-        padding: 4px 8px;
-    }
-    
-    .my-custom-input .v-icon {
-        margin-right: 4px;
     }
     </style>
     

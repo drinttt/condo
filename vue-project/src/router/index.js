@@ -30,17 +30,17 @@ const router = createRouter({
     {
       path: '/rooms',
       name: 'rooms',
-      component: () => import('../views/Rooms.vue')
+      component: () => import('../views/RoomsView.vue')
     },
     {
       path: '/expenses',
       name: 'expenses',
-      component: () => import('../views/Expenses.vue')
+      component: () => import('../views/ExpensesView.vue')
     },
     {
       path: '/utilities',
       name: 'utilities',
-      component: () => import('../views/Utilities.vue')
+      component: () => import('../views/UtilitiesView.vue')
     },
     {
       path: '/autophones',
@@ -50,12 +50,12 @@ const router = createRouter({
     {
       path: '/invoices',
       name: 'invoices',
-      component: () => import('../views/Invoices.vue')
+      component: () => import('../views/InvoicesView.vue')
     },
     {
       path: '/installments',
       name: 'installments',
-      component: () => import('../views/Installments.vue')
+      component: () => import('../views/InstallmentsView.vue')
     },
     {
       path: '/userloglevel',
@@ -65,7 +65,7 @@ const router = createRouter({
     {
       path: '/accounting',
       name: 'accounting',
-      component: () => import('../views/Accounting.vue')
+      component: () => import('../views/AccountingView.vue')
     },
     {
       path: '/roomcreate',

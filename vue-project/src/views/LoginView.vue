@@ -46,12 +46,10 @@
 </template>
 
 <script>
-import SvgIcon from '@jamescoyle/vue-icon';
-import { mdiAccount, mdiLock } from '@mdi/js';
+// import SvgIcon from '@jamescoyle/vue-icon';
 
 export default {
     components: {
-        SvgIcon
     },
     data: () => ({
         loginName: null,

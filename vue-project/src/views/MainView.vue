@@ -38,11 +38,11 @@
 </template>
 
 <script>
-import LoginView from './LoginView.vue'
+// import LoginView from './LoginView.vue'
 // import { mdiAccount } from '@mdi/js'
 
   export default {
-  components: { LoginView },
+  // components: { LoginView },
     data () {
       return {
         drawer: true,
