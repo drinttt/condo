@@ -1,59 +1,7 @@
 <template>
     <v-app class="bg-indigo-lighten-5">
         <!-- Navbar -->
-        <v-app-bar color="surface-variant">
-            <v-app-bar-title>CONDOMINIUM</v-app-bar-title>
-    
-            <!-- Information -->
-            <v-btn color="white">
-                <v-icon icon="mdi-domain"></v-icon>&nbsp; Information
-    
-                <v-menu activator="parent" open-on-hover>
-                    <v-list>
-                        <v-list-item v-for="(item, index) in informations" :key="index" :value="index">
-                            <router-link :to="`/${item.link}`" class="dropdown">
-                                <v-list-item-title>{{ item.title }}</v-list-item-title>
-                            </router-link>
-                        </v-list-item>
-                    </v-list>
-                </v-menu>
-            </v-btn>
-    
-            <!-- Invoice -->
-            <v-btn color="white">
-                <v-icon icon="mdi-receipt-text-edit-outline"></v-icon>&nbsp; Invoice
-    
-                <v-menu activator="parent" open-on-hover>
-                    <v-list>
-                        <v-list-item :to="item.link" v-for="(item, index) in invoices" :key="index" :value="index">
-                            <!-- <router-link :to="`/${item.link}`" class="dropdown"> -->
-                            <v-list-item-title>{{ item.title }}</v-list-item-title>
-                            <!-- </router-link> -->
-                        </v-list-item>
-                    </v-list>
-                </v-menu>
-            </v-btn>
-            <!-- Management and Security Systems -->
-            <v-btn color="white">
-                <v-icon icon="mdi-security"></v-icon>&nbsp; Management&Security Systems
-    
-                <v-menu activator="parent" open-on-hover>
-                    <v-list>
-                        <v-list-item v-for="(item, index) in secures" :key="index" :value="index">
-                            <router-link :to="`/${item.link}`" class="dropdown">
-                                <v-list-item-title>{{ item.title }}</v-list-item-title>
-                            </router-link>
-                        </v-list-item>
-                    </v-list>
-                </v-menu>
-            </v-btn>
-    
-            <v-spacer />
-            <v-spacer />
-            <v-spacer />
-    
-        </v-app-bar>
-        <br /><br /><br /><br />
+        <div><NavbarVue/></div>
     
         <!-- Import - Download - Create -->
         <!-- <div class="center">
@@ -112,17 +60,23 @@
             <v-data-table :items-per-page="itemsPerPage" :search="search" :headers="headers" :items="rooms" :sort-by="[{ key: 'rooms', order: 'asc' }]" class="elevation-1">
                 <template v-slot:top>
                     <v-toolbar flat>
-                        <v-toolbar-title>Utilities</v-toolbar-title>
+                        <v-toolbar-title>Invoices</v-toolbar-title>
                         <v-divider class="mx-4" inset vertical></v-divider>
                         <!-- <v-select attach :items="items" placeholder="select from items"></v-select> -->
                         <v-spacer></v-spacer>
     
                         <!-- seach -->
-                        <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
+                        <!-- <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field> -->
+                        <div class="v-input my-custom-input">
+                        <input v-model="search" class="v-input__control" placeholder="Search">
+                        <span class="v-input__append-inner">
+                            <v-icon>mdi-magnify</v-icon>
+                        </span>
+                    </div>
     
                         <v-dialog v-model="dialog" max-width="800px">
                             <template v-slot:activator="{ props }">
-                                <v-btn color="primary" dark class="mb-2" v-bind="props">
+                                <v-btn color="primary" dark class="mb-1 mt-1" v-bind="props">
                                     Create
                                 </v-btn>
                             </template>
@@ -208,10 +162,12 @@
     import {
         VDataTable
     } from 'vuetify/labs/VDataTable'
+    import NavbarVue from '../components/Navbar.vue'
     
     export default {
         components: {
             VDataTable,
+            NavbarVue,
         },
         data: () => ({
             // navbar

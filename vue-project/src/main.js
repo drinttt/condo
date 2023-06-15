@@ -20,6 +20,7 @@ import * as directives from 'vuetify/directives'
 // import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/dist/vuetify.min.css'
+import store from './store'
 
 
 
@@ -28,18 +29,12 @@ const vuetify = createVuetify({
   components,
   directives,
 
-  // icons: {
-  //   defaultSet: 'mdi',
-  //   aliases,
-  //   sets: {
-  //     mdi,
-  //   },
-  // }
+  
 })
 
 // library.add(fas, fab)
 
-const app = createApp(App)
+const app = createApp(App).use(store)
 
 app.use(createPinia())
 app.use(router)

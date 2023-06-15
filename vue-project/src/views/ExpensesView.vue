@@ -1,59 +1,7 @@
 <template>
 <v-app class="bg-indigo-lighten-5">
     <!-- Navbar -->
-    <v-app-bar color="surface-variant">
-        <v-app-bar-title>CONDOMINIUM</v-app-bar-title>
-
-        <!-- Information -->
-        <v-btn color="white">
-            <v-icon icon="mdi-domain"></v-icon>&nbsp; Information
-
-            <v-menu activator="parent" open-on-hover>
-                <v-list>
-                    <v-list-item v-for="(item, index) in informations" :key="index" :value="index">
-                        <router-link :to="`/${item.link}`" class="dropdown">
-                            <v-list-item-title>{{ item.title }}</v-list-item-title>
-                        </router-link>
-                    </v-list-item>
-                </v-list>
-            </v-menu>
-        </v-btn>
-
-        <!-- Invoice -->
-        <v-btn color="white">
-            <v-icon icon="mdi-receipt-text-edit-outline"></v-icon>&nbsp; Invoice
-
-            <v-menu activator="parent" open-on-hover>
-                <v-list>
-                    <v-list-item :to="item.link" v-for="(item, index) in invoices" :key="index" :value="index">
-                        <!-- <router-link :to="`/${item.link}`" class="dropdown"> -->
-                        <v-list-item-title>{{ item.title }}</v-list-item-title>
-                        <!-- </router-link> -->
-                    </v-list-item>
-                </v-list>
-            </v-menu>
-        </v-btn>
-        <!-- Management and Security Systems -->
-        <v-btn color="white">
-            <v-icon icon="mdi-security"></v-icon>&nbsp; Management&Security Systems
-
-            <v-menu activator="parent" open-on-hover>
-                <v-list>
-                    <v-list-item v-for="(item, index) in secures" :key="index" :value="index">
-                        <router-link :to="`/${item.link}`" class="dropdown">
-                            <v-list-item-title>{{ item.title }}</v-list-item-title>
-                        </router-link>
-                    </v-list-item>
-                </v-list>
-            </v-menu>
-        </v-btn>
-
-        <v-spacer />
-        <v-spacer />
-        <v-spacer />
-
-    </v-app-bar>
-    <br /><br /><br /><br />
+    <div><NavbarVue/></div>
 
     <h1 class="topicinfor">บันทึกค่าใช้จ่ายในตึก</h1>
 
@@ -166,11 +114,12 @@
 import {
     VDataTable
 } from 'vuetify/labs/VDataTable'
-// import SvgIcon from '@jamescoyle/vue-icon';
+import NavbarVue from '../components/Navbar.vue'
 
 export default {
     components: {
         VDataTable,
+        NavbarVue,
     },
     data: () => ({
         // navbar
