@@ -1,20 +1,23 @@
 <template>
   <v-app>
     <div>{{ something }}</div>
-    <div>{{ $store.state.count }}</div>
-    <div></div>
+    <div>{{ this.$store.state.rooms.something }}</div>
+    <div><p>Hello {{ hello }}</p></div>
+    <div>{{ this.$store.state.rooms.room }}</div>
   </v-app>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import store from '../store'
 
 export default {
   computed: {
     ...mapState({
-      something: state => state.roomsObj.something
-    })
+      something: state => state.rooms.something
+    }),
+    hello(){
+      return this.$store.state.rooms.something
+    }
   }
 }
 </script>

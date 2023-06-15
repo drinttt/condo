@@ -1,24 +1,41 @@
 import { createStore } from 'vuex'
-// import Vuex from 'vuex'
-import rooms from './modules/roomsObj'
-
+import rooms from './modules/rooms'
+import expenses from './modules/expenses'
 
 export default createStore({
   modules: {
-    rooms
+    rooms,
+    expenses
   },
   state: {
-    count: 64,
+    count: 64
   },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
+  getters: {},
+  mutations: {},
+  actions: {}
 })
+
+// import { createStore } from 'vuex'
+// // import Vuex from 'vuex'
+// import rooms from './modules/roomsObj'
+
+
+// export default createStore({
+//   modules: {
+//     rooms
+//   },
+//   state: {
+//     count: 64,
+//   },
+//   getters: {
+//   },
+//   mutations: {
+//   },
+//   actions: {
+//   },
+//   modules: {
+//   }
+// })
 // -----------------------------------------------------------
 // import Vue from 'vue'
 // import Vuex from 'vuex'

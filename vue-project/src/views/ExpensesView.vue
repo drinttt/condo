@@ -6,7 +6,7 @@
     <h1 class="topicinfor">บันทึกค่าใช้จ่ายในตึก</h1>
 
     <v-container grid-list-md>
-        <v-data-table :items-per-page="itemsPerPage" :group-by="groupBy" :search="search" :headers="headers" :items="expenses" :sort-by="[{ key: 'expenses', order: 'asc' }]" class="elevation-1">
+        <v-data-table :items-per-page="itemsPerPage" :group-by="groupBy" :search="search" :headers="headers" :items="expensesState" :sort-by="[{ key: 'expenses', order: 'asc' }]" class="elevation-1">
             <template v-slot:top>
                 <v-toolbar flat>
                     <v-toolbar-title>Building Expenses</v-toolbar-title>
@@ -114,7 +114,7 @@
 import {
     VDataTable
 } from 'vuetify/labs/VDataTable'
-import NavbarVue from '../components/Navbar.vue'
+import NavbarVue from '../components/NavbarMenu.vue'
 
 export default {
     components: {
@@ -522,18 +522,12 @@ export default {
         },
     },
     computed: {
-        // Filterexpenses() {
-        //     return this.expenses.filter(room => {
-        //         return (
-        //             room.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        //             room.room_number.toString().includes(this.searchTerm) ||
-        //             room.tel.toLowerCase().includes(this.searchTerm.toLowerCase())
-        //         );
-        //     })
-        // },
         formTitle() {
             return this.editedIndex === -1 ? 'Create Expense' : 'Edit Expense'
         },
+        expensesState() {
+            return this.$store.state.expenses.expense
+        }
     },
     watch: {
         dialog(val) {

@@ -6,7 +6,7 @@
     <h1 class="topicinfor">บันทึกสาธารณูปโภคอัตโนมัติ</h1>
 
     <v-container grid-list-md>
-        <v-data-table :items-per-page="itemsPerPage" :search="search" :headers="headers" :items="rooms" :sort-by="[{ key: 'rooms', order: 'asc' }]" class="elevation-1">
+        <v-data-table :items-per-page="itemsPerPage" :search="search" :headers="headers" :items="roomsState" :sort-by="[{ key: 'rooms', order: 'asc' }]" class="elevation-1">
             <template v-slot:top>
                 <v-toolbar flat>
                     <v-toolbar-title>Auto Utility Information</v-toolbar-title>
@@ -110,7 +110,7 @@
 import {
     VDataTable
 } from 'vuetify/labs/VDataTable'
-import NavbarVue from '../components/Navbar.vue'
+import NavbarVue from '../components/NavbarMenu.vue'
 
 export default {
     components: {
@@ -247,126 +247,126 @@ export default {
             this.$router.push('/roomcreate')
         },
         initialize() {
-            this.rooms = [{
-                    floors: 1,
-                    room: 101,
-                    tel: '0812345678',
-                    name: 'Frozen Yogurt',
-                    calories: 159,
-                    carbs: 24,
-                    protein: 4.0,
-                },
-                {
-                    floors: 3,
-                    room: 301,
-                    name: 'Ice cream sandwich',
-                    tel: '0892345678',
-                    calories: 237,
-                    fat: 9.0,
-                    carbs: 37,
-                    protein: 4.3,
-                },
-                {
-                    floors: 2,
-                    room: 204,
-                    name: 'Eclair',
-                    tel: '0882345678',
-                    calories: 262,
-                    fat: 16.0,
-                    carbs: 23,
-                    protein: 6.0,
-                },
-                {
-                    floors: 4,
-                    room: 409,
-                    name: 'Cupcake',
-                    tel: '0817745678',
-                    calories: 305,
-                    fat: 3.7,
-                    carbs: 67,
-                    protein: 4.3,
-                },
-                {
-                    floors: 3,
-                    room: 307,
-                    name: 'Gingerbread',
-                    tel: '0812345666',
-                    calories: 356,
-                    fat: 16.0,
-                    carbs: 49,
-                    protein: 3.9,
-                },
-                {
-                    floors: 8,
-                    room: 801,
-                    name: 'Jelly bean',
-                    tel: '0812342278',
-                    calories: 375,
-                    fat: 0.0,
-                    carbs: 94,
-                    protein: 0.0,
-                },
-                {
-                    floors: 9,
-                    room: 909,
-                    name: 'Lollipop',
-                    tel: '0819445678',
-                    calories: 392,
-                    fat: 0.2,
-                    carbs: 98,
-                    protein: 0,
-                },
-                {
-                    floors: 6,
-                    room: 607,
-                    name: 'Honeycomb',
-                    tel: '0812379678',
-                    calories: 408,
-                    fat: 3.2,
-                    carbs: 87,
-                    protein: 6.5,
-                },
-                {
-                    floors: 5,
-                    room: 503,
-                    name: 'Donut',
-                    tel: '0865345678',
-                    calories: 452,
-                    fat: 25.0,
-                    carbs: 51,
-                    protein: 4.9,
-                },
-                {
-                    floors: 4,
-                    room: 405,
-                    name: 'KitKat',
-                    tel: '0812345318',
-                    calories: 518,
-                    fat: 26.0,
-                    carbs: 65,
-                    protein: 7,
-                },
-                {
-                    floors: 6,
-                    room: 611,
-                    name: 'Kat',
-                    tel: '0814545318',
-                    calories: 518,
-                    fat: 26.0,
-                    carbs: 65,
-                    protein: 7,
-                },
-                {
-                    floors: 7,
-                    room: 711,
-                    name: 'Kit',
-                    tel: '0812345355',
-                    calories: 518,
-                    fat: 26.0,
-                    carbs: 65,
-                    protein: 7,
-                },
-            ]
+            // this.rooms = [{
+            //         floors: 1,
+            //         room: 101,
+            //         tel: '0812345678',
+            //         name: 'Frozen Yogurt',
+            //         calories: 159,
+            //         carbs: 24,
+            //         protein: 4.0,
+            //     },
+            //     {
+            //         floors: 3,
+            //         room: 301,
+            //         name: 'Ice cream sandwich',
+            //         tel: '0892345678',
+            //         calories: 237,
+            //         fat: 9.0,
+            //         carbs: 37,
+            //         protein: 4.3,
+            //     },
+            //     {
+            //         floors: 2,
+            //         room: 204,
+            //         name: 'Eclair',
+            //         tel: '0882345678',
+            //         calories: 262,
+            //         fat: 16.0,
+            //         carbs: 23,
+            //         protein: 6.0,
+            //     },
+            //     {
+            //         floors: 4,
+            //         room: 409,
+            //         name: 'Cupcake',
+            //         tel: '0817745678',
+            //         calories: 305,
+            //         fat: 3.7,
+            //         carbs: 67,
+            //         protein: 4.3,
+            //     },
+            //     {
+            //         floors: 3,
+            //         room: 307,
+            //         name: 'Gingerbread',
+            //         tel: '0812345666',
+            //         calories: 356,
+            //         fat: 16.0,
+            //         carbs: 49,
+            //         protein: 3.9,
+            //     },
+            //     {
+            //         floors: 8,
+            //         room: 801,
+            //         name: 'Jelly bean',
+            //         tel: '0812342278',
+            //         calories: 375,
+            //         fat: 0.0,
+            //         carbs: 94,
+            //         protein: 0.0,
+            //     },
+            //     {
+            //         floors: 9,
+            //         room: 909,
+            //         name: 'Lollipop',
+            //         tel: '0819445678',
+            //         calories: 392,
+            //         fat: 0.2,
+            //         carbs: 98,
+            //         protein: 0,
+            //     },
+            //     {
+            //         floors: 6,
+            //         room: 607,
+            //         name: 'Honeycomb',
+            //         tel: '0812379678',
+            //         calories: 408,
+            //         fat: 3.2,
+            //         carbs: 87,
+            //         protein: 6.5,
+            //     },
+            //     {
+            //         floors: 5,
+            //         room: 503,
+            //         name: 'Donut',
+            //         tel: '0865345678',
+            //         calories: 452,
+            //         fat: 25.0,
+            //         carbs: 51,
+            //         protein: 4.9,
+            //     },
+            //     {
+            //         floors: 4,
+            //         room: 405,
+            //         name: 'KitKat',
+            //         tel: '0812345318',
+            //         calories: 518,
+            //         fat: 26.0,
+            //         carbs: 65,
+            //         protein: 7,
+            //     },
+            //     {
+            //         floors: 6,
+            //         room: 611,
+            //         name: 'Kat',
+            //         tel: '0814545318',
+            //         calories: 518,
+            //         fat: 26.0,
+            //         carbs: 65,
+            //         protein: 7,
+            //     },
+            //     {
+            //         floors: 7,
+            //         room: 711,
+            //         name: 'Kit',
+            //         tel: '0812345355',
+            //         calories: 518,
+            //         fat: 26.0,
+            //         carbs: 65,
+            //         protein: 7,
+            //     },
+            // ]
         },
 
         editItem(item) {
@@ -412,18 +412,12 @@ export default {
         },
     },
     computed: {
-        // FilterRooms() {
-        //     return this.rooms.filter(room => {
-        //         return (
-        //             room.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        //             room.room_number.toString().includes(this.searchTerm) ||
-        //             room.tel.toLowerCase().includes(this.searchTerm.toLowerCase())
-        //         );
-        //     })
-        // },
         formTitle() {
             return this.editedIndex === -1 ? 'Create Utility' : 'Edit Room'
         },
+        roomsState() {
+            return this.$store.state.rooms.room
+        }
     },
     watch: {
         dialog(val) {
