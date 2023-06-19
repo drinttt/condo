@@ -85,7 +85,7 @@
             <template v-slot:item.actions="{ item }">
                 <!-- <v-btn size="small" class="mx-1 text-left" @click="editItem(item.raw)" color="success">edit</v-btn>
                 <v-btn size="small" color="error" @click="deleteItem(item.raw)">delete</v-btn> -->
-                <v-icon size="small" class="me-2" @click="editItem2(item.raw)">
+                <v-icon size="small" class="me-2" @click="editItem(item.raw)">
                     mdi-pencil
                 </v-icon>
                 <v-icon size="small" @click="deleteItem(item.raw)">
@@ -126,11 +126,11 @@ export default {
 
         headers: [{
                 title: 'Floor',
-                key: 'floors', //cal
+                key: 'floors',
             },
             {
                 title: 'Room',
-                key: 'room' //fat
+                key: 'room'
             },
             {
                 title: 'Name',
@@ -141,7 +141,7 @@ export default {
             {
                 title: 'Tel',
                 key: 'tel',
-                sortable: false //carb
+                sortable: false
             }, //แก้ให้ sort ไม่ได้
             // { title: 'Protein (g)', key: 'protein' },
             {
@@ -295,14 +295,23 @@ export default {
             // ]
         },
 
+        // editItem(item) {
+        //     this.editedIndex = this.rooms.indexOf(item)
+        //     this.editedItem = Object.assign({}, item)
+        //     this.dialog = true
+        //     console.log(this.rooms.indexOf(item))
+        // },
+
+        //2
         editItem(item) {
-            this.editedIndex = this.rooms.indexOf(item)
+            this.editedIndex = this.$store.state.rooms.room.indexOf(item)
+            // console.log(this.editedIndex)
+            this.$store.commit('editIndex', this.editedIndex);
             this.editedItem = Object.assign({}, item)
             this.dialog = true
-        },
 
-        editItem2(item) {
-            
+            // console.log(this.$store.state.rooms.editedIndex)
+            // console.log(this.$store.state.rooms.room.indexOf(item))
         },
 
         deleteItem(item) {
@@ -344,6 +353,7 @@ export default {
             this.close()
         },
         save2() {
+            console.log(this.$store.state.rooms.editedIndex)
             if (this.$store.state.rooms.editedIndex > -1) {
                 //edit
                 const updatedItem = {

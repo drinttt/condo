@@ -131,12 +131,15 @@ const mutations = {
     // updateItem(state, { index, updatedItem }) {
     //     Vue.set(state.room, index, updatedItem);
     // },
-    //1
+    
+    // 1
     updateItem(state, { index, updatedItem }) {
         state.room.splice(index, 1, updatedItem);
     },
 
-    
+    editIndex(state, index) {
+        state.editedIndex = index;
+    },
 }
   
   
