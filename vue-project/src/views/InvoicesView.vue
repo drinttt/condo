@@ -17,46 +17,6 @@
         </div> -->
 
     <h1 class="topicinfor">ใบแจ้งหนี้/ใบเสร็จรับเงิน</h1>
-    <!-- <v-row class="import-download">
-            <v-btn class="mx-1">import <v-icon icon="mdi-import"></v-icon>
-            </v-btn>
-            <v-btn @click="RoomCreate()" class="mx-1">Create <v-icon icon="mdi-pencil-outline"></v-icon>
-            </v-btn>
-        </v-row><br /> -->
-
-    <!-- table -->
-    <!-- <div class="center">
-            <v-table fixed-header height="700px" class="table-container">
-                <thead>
-                    <tr>
-                        <th class="text-center bg-indigo-accent-1">
-                            ลำดับที่
-                        </th>
-                        <th class="text-center bg-indigo-accent-1">
-                            เลขที่ห้อง
-                        </th>
-                        <th class="text-left bg-indigo-accent-1">
-                            ชื่อ-สกุล เจ้าของห้อง
-                        </th>
-                        <th class="text-left bg-indigo-accent-1">
-                            เบอร์โทร
-                        </th>
-                        <th class="text-left bg-indigo-accent-1"> </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(room, index) in FilterRooms" :key="room.name">
-                        <td class="text-center">{{ index + 1 }}</td>
-                        <td class="text-center">{{ room.room_number }}</td>
-                        <td class="text-left">{{ room.name }}</td>
-                        <td class="text-left">{{ room.tel }}</td>
-                        <td class="text-center">
-                            <v-btn size="x-small">edit</v-btn>
-                        </td>
-                    </tr>
-                </tbody>
-            </v-table>
-        </div> -->
 
     <v-container grid-list-md>
         <v-data-table :items-per-page="itemsPerPage" :search="search" :headers="headers" :items="roomsState" :sort-by="[{ key: 'rooms', order: 'asc' }]" class="elevation-1">

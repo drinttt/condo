@@ -1,6 +1,8 @@
 <template>
 <v-app class="bg-indigo-lighten-5">
-    <div><NavbarVue/></div>
+    <div>
+        <NavbarVue />
+    </div>
 
     <h1 class="topicinfor">รายละเอียดข้อมูลของแต่ละห้อง</h1>
 
@@ -50,15 +52,6 @@
                                         <v-col cols="12" sm="6" md="4">
                                             <v-text-field v-model="editedItem.tel" label="Tel."></v-text-field>
                                         </v-col>
-                                        <!-- <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                                        </v-col> -->
                                     </v-row>
                                 </v-container>
                             </v-card-text>
@@ -69,7 +62,7 @@
                                 <v-btn color="blue-darken-1" variant="text" @click="close">
                                     Cancel
                                 </v-btn>
-                                <v-btn color="blue-darken-1" variant="text" @click="save">
+                                <v-btn color="blue-darken-1" variant="text" @click="save2">
                                     Save
                                 </v-btn>
                             </v-card-actions>
@@ -92,7 +85,7 @@
             <template v-slot:item.actions="{ item }">
                 <!-- <v-btn size="small" class="mx-1 text-left" @click="editItem(item.raw)" color="success">edit</v-btn>
                 <v-btn size="small" color="error" @click="deleteItem(item.raw)">delete</v-btn> -->
-                <v-icon size="small" class="me-2" @click="editItem(item.raw)">
+                <v-icon size="small" class="me-2" @click="editItem2(item.raw)">
                     mdi-pencil
                 </v-icon>
                 <v-icon size="small" @click="deleteItem(item.raw)">
@@ -110,6 +103,11 @@
 import {
     VDataTable
 } from 'vuetify/labs/VDataTable'
+import {
+    mapActions,
+    mapMutations,
+    mapState
+} from 'vuex'
 import NavbarVue from '../components/NavbarMenu.vue'
 
 export default {
@@ -118,7 +116,7 @@ export default {
         NavbarVue
     },
     data: () => ({
-        
+
         // searchTerm: '',
 
         //vDataTable
@@ -171,9 +169,9 @@ export default {
         search: '',
     }),
     methods: {
-        RoomCreate() {
-            this.$router.push('/roomcreate')
-        },
+        // RoomCreate() {
+        //     this.$router.push('/roomcreate')
+        // },
         initialize() {
             // this.rooms = [{
             //         floors: 1,
@@ -303,6 +301,10 @@ export default {
             this.dialog = true
         },
 
+        editItem2(item) {
+            
+        },
+
         deleteItem(item) {
             this.editedIndex = this.rooms.indexOf(item)
             this.editedItem = Object.assign({}, item)
@@ -331,21 +333,47 @@ export default {
         },
 
         save() {
+            //edit
             if (this.editedIndex > -1) {
                 Object.assign(this.rooms[this.editedIndex], this.editedItem)
             } else {
+                //add
                 this.rooms.push(this.editedItem)
             }
+
             this.close()
         },
+        save2() {
+            if (this.$store.state.rooms.editedIndex > -1) {
+                //edit
+                const updatedItem = {
+                    ...this.editedItem
+                };
+                this.$store.dispatch('rooms/updateItem', {
+                    index: this.editedIndex,
+                    updatedItem
+                });
+            } else {
+                //add new
+                const newItem = {
+                    ...this.editedItem
+                };
+                this.$store.dispatch('rooms/addItem', newItem);
+            }
+            // console.log(this.editedIndex)
+            this.close()
+        }
     },
     computed: {
         formTitle() {
             return this.editedIndex === -1 ? 'Create Room' : 'Edit Room'
         },
+        //แสดงใน table
+        ...mapState(['rooomState']),
+
         roomsState() {
             return this.$store.state.rooms.room
-        }
+        },
     },
     watch: {
         dialog(val) {

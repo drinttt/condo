@@ -119,16 +119,50 @@ const state = {
         carbs: 65,
         protein: 7,
     },
-    ]
+    ],
+    editedIndex: -1,
+    editedItem: {}
 }
   
-  const mutations = {}
+const mutations = {
+    addItem(state, newItem) {
+        state.room.push(newItem);
+    },
+    // updateItem(state, { index, updatedItem }) {
+    //     Vue.set(state.room, index, updatedItem);
+    // },
+    //1
+    updateItem(state, { index, updatedItem }) {
+        state.room.splice(index, 1, updatedItem);
+    },
+
+    
+}
   
-  const actions = {}
   
-  const getters = {}
+const actions = {
+    addItem({ commit }, newItem) {
+        commit('addItem', newItem);
+    },
+    
+    // updateItem({ commit, state }, { roomIndex, updatedItem }) {
+    //     const roomIndex = state.room.findIndex(item => item === state.editedItem);
+    //     if (roomIndex > -1) {
+    //       commit('updateItem', { index: roomIndex, updatedItem });
+    //     }
+    // },
+    updateItem({ commit, state }, { updatedItem }) {
+        const roomIndex = state.room.findIndex(item => item === state.editedItem);
+        if (roomIndex > -1) {
+          commit('updateItem', { index: roomIndex, updatedItem });
+        }
+    },
+    
+}
   
-  export default {
+const getters = {}
+  
+export default {
     namespaced: true,
     state,
     mutations,
