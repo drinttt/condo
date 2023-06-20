@@ -1,5 +1,6 @@
 const state = {
-    something: 46,
+    editedIndex: -1,
+    editedItem: {},
     expense: [{
         year: 2018,
         month: 'มกราคม',
@@ -227,9 +228,44 @@ const state = {
 ]
 }
   
-  const mutations = {}
+  const mutations = {
+    addItem(state, newItem) {
+        state.expense.push(newItem)
+    },
+    updateItem(state, {index, updatedItem}) {
+        state.expense.splice(index, 1, updatedItem);
+    },
+    setEditedItem(state, item) {
+        state.editedItem = Object.assign({}, item)
+    },
+    setEditedIndex(state, index) {
+        state.editedIndex = index
+    },
+    deleteItem(state, index) {
+        state.expense.splice(index, 1)
+    }
+  }
   
-  const actions = {}
+  const actions = {
+    addItem({ commit }, newItem) {
+        commit('addItem' ,newItem)
+    },
+    updateItem({ commit, state}, { updatedItem }) {
+        const expenseIndex = state.expense.findIndex(item => item.expense === state.editedItem.expense)
+        if (expenseIndex > -1) {
+            commit('updateItem', { index: expenseIndex, updatedItem });
+        }
+    },
+    setEditedItem({ commit }, item){
+        commit('setEditedItem', item)
+    },
+    editIndex({ commit } , index) {
+        commit('setEditedIndex', index)
+    },
+    deleteItem({commit}, index) {
+        commit('deleteItem', index)       
+    }
+  }
   
   const getters = {}
   

@@ -1,5 +1,7 @@
 const state = {
     something: 46,
+    editedIndex: -1,
+    editedItem: {},
     room: [{
         floors: 1,
         room: 101,
@@ -120,26 +122,26 @@ const state = {
         protein: 7,
     },
     ],
-    editedIndex: -1,
-    editedItem: {}
 }
   
 const mutations = {
     addItem(state, newItem) {
         state.room.push(newItem);
     },
-    // updateItem(state, { index, updatedItem }) {
-    //     Vue.set(state.room, index, updatedItem);
-    // },
-    
     // 1
     updateItem(state, { index, updatedItem }) {
         state.room.splice(index, 1, updatedItem);
     },
 
-    editIndex(state, index) {
+    setEditedItem(state, item) {
+        state.editedItem = Object.assign({}, item);
+    },
+    setEditedIndex(state, index) {
         state.editedIndex = index;
     },
+    deleteItem(state, index) {
+        state.room.splice(index, 1)
+    }
 }
   
   
@@ -147,20 +149,21 @@ const actions = {
     addItem({ commit }, newItem) {
         commit('addItem', newItem);
     },
-    
-    // updateItem({ commit, state }, { roomIndex, updatedItem }) {
-    //     const roomIndex = state.room.findIndex(item => item === state.editedItem);
-    //     if (roomIndex > -1) {
-    //       commit('updateItem', { index: roomIndex, updatedItem });
-    //     }
-    // },
     updateItem({ commit, state }, { updatedItem }) {
-        const roomIndex = state.room.findIndex(item => item === state.editedItem);
+        const roomIndex = state.room.findIndex(item => item.room === state.editedItem.room);
         if (roomIndex > -1) {
-          commit('updateItem', { index: roomIndex, updatedItem });
+            commit('updateItem', { index: roomIndex, updatedItem });
         }
     },
-    
+    setEditedItem({ commit }, item) {
+        commit('setEditedItem', item);
+    },
+    editIndex({ commit }, index) {
+        commit('setEditedIndex', index);
+    },
+    deleteItem({commit}, index) {
+        commit('deleteItem', index)       
+    }
 }
   
 const getters = {}

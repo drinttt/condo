@@ -4,8 +4,8 @@ import expenses from './modules/expenses'
 
 export default createStore({
   modules: {
+    expenses,
     rooms,
-    expenses
   },
   state: {
     count: 64

@@ -1,7 +1,9 @@
 <template>
 <v-app class="bg-indigo-lighten-5">
     <!-- Navbar -->
-    <div><NavbarVue/></div>
+    <div>
+        <NavbarVue />
+    </div>
 
     <h1 class="topicinfor">บันทึกค่าใช้จ่ายในตึก</h1>
 
@@ -71,7 +73,7 @@
                                 <v-btn color="blue-darken-1" variant="text" @click="close">
                                     Cancel
                                 </v-btn>
-                                <v-btn color="blue-darken-1" variant="text" @click="save">
+                                <v-btn color="blue-darken-1" variant="text" @click="save2">
                                     Save
                                 </v-btn>
                             </v-card-actions>
@@ -108,8 +110,6 @@
 </v-app>
 </template>
 
-    
-    
 <script>
 import {
     VDataTable
@@ -138,7 +138,10 @@ export default {
         //         title: "utilities"
         //     }
         // ],
-        groupBy: [{ key: 'year', order: 'asc' }],
+        groupBy: [{
+            key: 'year',
+            order: 'asc'
+        }],
 
         informations: [{
                 title: 'ข้อมูลของแต่ละห้อง',
@@ -248,252 +251,258 @@ export default {
         search: '',
     }),
     methods: {
-        RoomCreate() {
-            this.$router.push('/roomcreate')
-        },
+        // RoomCreate() {
+        //     this.$router.push('/roomcreate')
+        // },
         initialize() {
-            this.expenses = [{
-                    year: 2018,
-                    month: 'มกราคม',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2018,
-                    month: 'กุมภาพันธ์',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2018,
-                    month: 'มีนาคม',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2018,
-                    month: 'เมษายน',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2018,
-                    month: 'พฤษภาคม',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2018,
-                    month: 'มิถุนายน',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2018,
-                    month: 'กรกฎาคม',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2018,
-                    month: 'สิงหาคม',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2018,
-                    month: 'กันยายน',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2018,
-                    month: 'ตุลาคม',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2018,
-                    month: 'พฤศจิกายน',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2018,
-                    month: 'ธันวาคม',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                }, {
-                    year: 2019,
-                    month: 'มกราคม',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2019,
-                    month: 'กุมภาพันธ์',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2019,
-                    month: 'มีนาคม',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2019,
-                    month: 'เมษายน',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2019,
-                    month: 'พฤษภาคม',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2019,
-                    month: 'มิถุนายน',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2019,
-                    month: 'กรกฎาคม',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2019,
-                    month: 'สิงหาคม',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2019,
-                    month: 'กันยายน',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2019,
-                    month: 'ตุลาคม',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2019,
-                    month: 'พฤศจิกายน',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2019,
-                    month: 'ธันวาคม',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-                {
-                    year: 2020,
-                    month: 'ธันวาคม',
-                    common_fee: 500,
-                    water_bill: 100,
-                    electricity_bill: 400,
-                    repair_cost: 600,
-                    employee_salary: 20000
-                },
-            ]
+            // this.expenses = [{
+            //         year: 2018,
+            //         month: 'มกราคม',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2018,
+            //         month: 'กุมภาพันธ์',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2018,
+            //         month: 'มีนาคม',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2018,
+            //         month: 'เมษายน',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2018,
+            //         month: 'พฤษภาคม',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2018,
+            //         month: 'มิถุนายน',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2018,
+            //         month: 'กรกฎาคม',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2018,
+            //         month: 'สิงหาคม',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2018,
+            //         month: 'กันยายน',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2018,
+            //         month: 'ตุลาคม',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2018,
+            //         month: 'พฤศจิกายน',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2018,
+            //         month: 'ธันวาคม',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     }, {
+            //         year: 2019,
+            //         month: 'มกราคม',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2019,
+            //         month: 'กุมภาพันธ์',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2019,
+            //         month: 'มีนาคม',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2019,
+            //         month: 'เมษายน',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2019,
+            //         month: 'พฤษภาคม',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2019,
+            //         month: 'มิถุนายน',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2019,
+            //         month: 'กรกฎาคม',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2019,
+            //         month: 'สิงหาคม',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2019,
+            //         month: 'กันยายน',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2019,
+            //         month: 'ตุลาคม',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2019,
+            //         month: 'พฤศจิกายน',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2019,
+            //         month: 'ธันวาคม',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            //     {
+            //         year: 2020,
+            //         month: 'ธันวาคม',
+            //         common_fee: 500,
+            //         water_bill: 100,
+            //         electricity_bill: 400,
+            //         repair_cost: 600,
+            //         employee_salary: 20000
+            //     },
+            // ]
         },
 
+        // editItem(item) {
+        //     this.editedIndex = this.expenses.indexOf(item)
+        //     this.editedItem = Object.assign({}, item)
+        //     this.dialog = true
+        // },
         editItem(item) {
-            this.editedIndex = this.expenses.indexOf(item)
-            this.editedItem = Object.assign({}, item)
+            this.editedIndex = this.$store.state.expenses.expense.indexOf(item)
+            this.$store.dispatch('expenses/editIndex', this.editedIndex);
+            this.editedItem = Object.assign({}, item) //copy object
+            this.$store.dispatch('expenses/setEditedItem', item);
             this.dialog = true
         },
 
-        deleteItem(item) {
-            this.editedIndex = this.expenses.indexOf(item)
-            this.editedItem = Object.assign({}, item)
-            this.dialogDelete = true
+        deleteItem(item){
+            this.editedIndex = this.$store.state.expenses.expense.indexOf(item);
+            this.dialogDelete = true;
         },
 
         deleteItemConfirm() {
-            this.expenses.splice(this.editedIndex, 1)
-            this.closeDelete()
+            this.$store.dispatch('expenses/deleteItem', this.editedIndex);
+            this.closeDelete();
         },
 
         close() {
@@ -512,14 +521,35 @@ export default {
             })
         },
 
-        save() {
-            if (this.editedIndex > -1) {
-                Object.assign(this.expenses[this.editedIndex], this.editedItem)
+        // save() {
+        //     if (this.editedIndex > -1) {
+        //         Object.assign(this.expenses[this.editedIndex], this.editedItem)
+        //     } else {
+        //         this.expenses.push(this.editedItem)
+        //     }
+        //     this.close()
+        // },
+        save2() {
+            console.log(this.$store.state.expenses.editedIndex)
+            if (this.$store.state.expenses.editedIndex > -1) {
+                //edit
+                const updatedItem = {
+                    ...this.editedItem
+                };
+                this.$store.dispatch('expenses/updateItem', {
+                    index: this.editedIndex,
+                    updatedItem
+                });
             } else {
-                this.expenses.push(this.editedItem)
+                //add new
+                const newItem = {
+                    ...this.editedItem
+                };
+                this.$store.dispatch('expenses/addItem', newItem);
             }
+            // console.log(this.editedIndex)
             this.close()
-        },
+        }
     },
     computed: {
         formTitle() {
@@ -542,10 +572,8 @@ export default {
     },
 }
 </script>
-    
-    
-<style>
 
+<style>
 /* .search {
             display: flex;
             justify-content: flex-end;

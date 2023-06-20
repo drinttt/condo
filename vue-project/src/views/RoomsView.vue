@@ -104,8 +104,6 @@ import {
     VDataTable
 } from 'vuetify/labs/VDataTable'
 import {
-    mapActions,
-    mapMutations,
     mapState
 } from 'vuex'
 import NavbarVue from '../components/NavbarMenu.vue'
@@ -305,24 +303,29 @@ export default {
         //2
         editItem(item) {
             this.editedIndex = this.$store.state.rooms.room.indexOf(item)
-            // console.log(this.editedIndex)
-            this.$store.commit('editIndex', this.editedIndex);
-            this.editedItem = Object.assign({}, item)
+            this.$store.dispatch('rooms/editIndex', this.editedIndex);
+            this.editedItem = Object.assign({}, item) //copy object
+            this.$store.dispatch('rooms/setEditedItem', item);
             this.dialog = true
-
-            // console.log(this.$store.state.rooms.editedIndex)
-            // console.log(this.$store.state.rooms.room.indexOf(item))
         },
 
-        deleteItem(item) {
-            this.editedIndex = this.rooms.indexOf(item)
-            this.editedItem = Object.assign({}, item)
-            this.dialogDelete = true
+        // deleteItem(item) {
+        //     this.editedIndex = this.rooms.indexOf(item)
+        //     this.editedItem = Object.assign({}, item)
+        //     this.dialogDelete = true
+        // },
+        deleteItem(item){
+            this.editedIndex = this.$store.state.rooms.room.indexOf(item);
+            this.dialogDelete = true;
         },
 
+        // deleteItemConfirm() {
+        //     this.rooms.splice(this.editedIndex, 1)
+        //     this.closeDelete()
+        // },
         deleteItemConfirm() {
-            this.rooms.splice(this.editedIndex, 1)
-            this.closeDelete()
+            this.$store.dispatch('rooms/deleteItem', this.editedIndex);
+            this.closeDelete();
         },
 
         close() {
