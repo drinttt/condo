@@ -46,7 +46,6 @@
 </template>
 
 <script>
-// import SvgIcon from '@jamescoyle/vue-icon';
 
 export default {
     components: {
@@ -85,6 +84,7 @@ export default {
             this.$router.push('/rooms')
         }
     },
+
 }
 </script>
 

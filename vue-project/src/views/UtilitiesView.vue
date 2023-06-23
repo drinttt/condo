@@ -1,7 +1,9 @@
 <template>
 <v-app class="bg-indigo-lighten-5">
     <!-- Navbar -->
-    <div><NavbarVue/></div>
+    <div>
+        <NavbarVue />
+    </div>
 
     <h1 class="topicinfor">บันทึกสาธารณูปโภคอัตโนมัติ</h1>
 
@@ -51,15 +53,6 @@
                                         <v-col cols="12" sm="6" md="4">
                                             <v-text-field v-model="editedItem.tel" label="Tel."></v-text-field>
                                         </v-col>
-                                        <!-- <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                                            </v-col> -->
                                     </v-row>
                                 </v-container>
                             </v-card-text>
@@ -93,9 +86,9 @@
             <template v-slot:item.actions="{ item }">
                 <!-- <v-btn size="small" class="mx-1 text-left" @click="editItem(item.raw)" color="success">edit</v-btn>
                     <v-btn size="small" color="error" @click="deleteItem(item.raw)">delete</v-btn> -->
-                    <v-icon size="small" class="me-2" @click="editItem(item.raw)">
-                        mdi-dots-vertical
-                    </v-icon>
+                <v-icon size="small" class="me-2" @click="more(item.raw)">
+                    mdi-dots-vertical
+                </v-icon>
             </template>
         </v-data-table>
     </v-container><br />
@@ -104,8 +97,6 @@
 </v-app>
 </template>
 
-    
-    
 <script>
 import {
     VDataTable
@@ -118,7 +109,7 @@ export default {
         VDataTable,
     },
     data: () => ({
-        
+
         // Infor_room
         // rooms: [{
         //         room_number: "001",
@@ -410,6 +401,22 @@ export default {
             }
             this.close()
         },
+
+        more(item) {
+            const index = this.$store.state.rooms.room.indexOf(item)
+            this.$store.commit('rooms/setUtilityIndex', index)
+
+            // console.log(Object.assign({}, item))
+            const roomdata = Object.assign({}, item)
+            // console.log(roomdata.room)
+            this.$store.commit('rooms/setUtilityRoom', roomdata.room)
+            // console.log(this.$store.state.rooms.dataUtility)
+
+            //*****
+            this.$router.push({
+                name: 'utilityDetail',
+            })
+        },
     },
     computed: {
         formTitle() {
@@ -432,8 +439,7 @@ export default {
     },
 }
 </script>
-    
-    
+
 <style>
 .table-container {
     width: 70%;

@@ -2,6 +2,10 @@ const state = {
     something: 46,
     editedIndex: -1,
     editedItem: {},
+    //Utility
+    dataUtilityRoom: null,
+    dataUtilityIndex: null,
+
     room: [{
         floors: 1,
         room: 101,
@@ -141,6 +145,14 @@ const mutations = {
     },
     deleteItem(state, index) {
         state.room.splice(index, 1)
+    },
+
+    //Utility
+    setUtilityRoom(state, payload) {
+        state.dataUtilityRoom = payload
+    },
+    setUtilityIndex(state, index) {
+        state.dataUtilityIndex = index
     }
 }
   
@@ -162,8 +174,8 @@ const actions = {
         commit('setEditedIndex', index);
     },
     deleteItem({commit}, index) {
-        commit('deleteItem', index)       
-    }
+        commit('deleteItem', index) 
+    },
 }
   
 const getters = {}

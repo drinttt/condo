@@ -1,11 +1,15 @@
 import { createStore } from 'vuex'
 import rooms from './modules/rooms'
 import expenses from './modules/expenses'
+import users from './modules/users'
+import invoices from './modules/invoices'
 
 export default createStore({
   modules: {
-    expenses,
     rooms,
+    expenses,
+    invoices,
+    users,
   },
   state: {
     count: 64

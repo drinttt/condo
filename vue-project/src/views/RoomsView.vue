@@ -62,7 +62,7 @@
                                 <v-btn color="blue-darken-1" variant="text" @click="close">
                                     Cancel
                                 </v-btn>
-                                <v-btn color="blue-darken-1" variant="text" @click="save2">
+                                <v-btn color="blue-darken-1" variant="text" @click="save">
                                     Save
                                 </v-btn>
                             </v-card-actions>
@@ -114,7 +114,7 @@ export default {
         NavbarVue
     },
     data: () => ({
-
+        titleWeb: 'Hello',
         // searchTerm: '',
 
         //vDataTable
@@ -150,6 +150,7 @@ export default {
         ],
         rooms: [],
         editedIndex: -1,
+        //***
         editedItem: {
             name: '',
             floors: null,
@@ -344,19 +345,20 @@ export default {
             })
         },
 
-        save() {
-            //edit
-            if (this.editedIndex > -1) {
-                Object.assign(this.rooms[this.editedIndex], this.editedItem)
-            } else {
-                //add
-                this.rooms.push(this.editedItem)
-            }
+        // save() {
+        //     //edit
+        //     if (this.editedIndex > -1) {
+        //         Object.assign(this.rooms[this.editedIndex], this.editedItem)
+        //     } else {
+        //         //add
+        //         this.rooms.push(this.editedItem)
+        //     }
 
-            this.close()
-        },
-        save2() {
-            console.log(this.$store.state.rooms.editedIndex)
+        //     this.close()
+        // },
+        save() {
+            //บอก index ตัวที่กด
+            // console.log(this.$store.state.rooms.editedIndex)
             if (this.$store.state.rooms.editedIndex > -1) {
                 //edit
                 const updatedItem = {
@@ -374,8 +376,11 @@ export default {
                 this.$store.dispatch('rooms/addItem', newItem);
             }
             // console.log(this.editedIndex)
+            console.log(this.$store.state.rooms.room)
+            console.log(this.editedItem)
             this.close()
-        }
+        },
+        
     },
     computed: {
         formTitle() {
@@ -397,7 +402,7 @@ export default {
         },
     },
     created() {
-        this.initialize()
+        // this.initialize()
     },
 }
 </script>

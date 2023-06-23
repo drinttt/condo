@@ -72,6 +72,11 @@ const router = createRouter({
       name: 'roomcreate',
       component: () => import('../views/RoomCreate.vue')
     },
+    {
+      path: '/utilityDetail',
+      name: 'utilityDetail',
+      component: () => import('../views/utilityDetail.vue')
+    }
   ]
 })
 

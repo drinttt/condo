@@ -8,7 +8,7 @@ const state = {
         water_bill: 100,
         electricity_bill: 400,
         repair_cost: 600,
-        employee_salary: 20000
+        employee_salary: 20000,
     },
     {
         year: 2018,
