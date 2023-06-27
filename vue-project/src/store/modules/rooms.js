@@ -2,6 +2,7 @@ const state = {
     something: 46,
     editedIndex: -1,
     editedItem: {},
+    filterYear: null,
     //Utility
     dataUtilityRoom: null,
     dataUtilityIndex: null,
@@ -11,19 +12,6 @@ const state = {
         room: 101,
         tel: '0812345678',
         name: 'Frozen YogurtAnna',
-        calories: 460,
-        carbs: 24,
-        protein: 4.0,
-    },
-    {
-        floors: 3,
-        room: 301,
-        name: 'Ice cream sandwich',
-        tel: '0892345678',
-        calories: 237,
-        fat: 9.0,
-        carbs: 37,
-        protein: 4.3,
     },
     {
         floors: 2,
@@ -34,6 +22,16 @@ const state = {
         fat: 16.0,
         carbs: 23,
         protein: 6.0,
+    },
+    {
+        floors: 3,
+        room: 301,
+        name: 'Ice cream sandwich',
+        tel: '0892345678',
+        calories: 237,
+        fat: 9.0,
+        carbs: 37,
+        protein: 4.3,
     },
     {
         floors: 4,
@@ -153,7 +151,14 @@ const mutations = {
     },
     setUtilityIndex(state, index) {
         state.dataUtilityIndex = index
-    }
+    },
+    //AutoPhone
+    // setAutoPhoneRoom(state, payload) {
+    //     state.dataAutoPhoneRoom = payload
+    // },
+    // setAutoPhoneIndex(state, index) {
+    //     state.dataAutoPhoneIndex = index
+    // },
 }
   
   
@@ -178,7 +183,8 @@ const actions = {
     },
 }
   
-const getters = {}
+const getters = {
+}
   
 export default {
     namespaced: true,

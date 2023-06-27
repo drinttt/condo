@@ -1,6 +1,7 @@
 const state = {
     editedIndex: -1,
     editedItem: {},
+    years: [],
     expense: [{
         year: 2018,
         month: 'มกราคม',
@@ -243,7 +244,7 @@ const state = {
     },
     deleteItem(state, index) {
         state.expense.splice(index, 1)
-    }
+    },
   }
   
   const actions = {
@@ -264,10 +265,20 @@ const state = {
     },
     deleteItem({commit}, index) {
         commit('deleteItem', index)       
-    }
+    },
   }
-  
-  const getters = {}
+
+  const getters = {
+    //Unique year
+    uniqueYears: state => {
+        const allYears = [...new Set(state.expense.map(item => item.year))];
+        return ['All', ...allYears];
+    },
+
+    // filteredExpense: (state) => {
+    //     return state.expense.filter(item => item.year === state.selectedYear);
+    // },
+  }
   
   export default {
     namespaced: true,

@@ -82,12 +82,12 @@ export default {
                 link: "rooms"
             },
             {
-                title: 'บันทึกค่าใช้จ่ายในตึก',
-                link: "expenses"
-            },
-            {
                 title: 'บันทึกสาธารณูปโภคอัตโนมัติ',
                 link: "utilities"
+            },
+            {
+                title: 'บันทึกค่าใช้จ่ายในตึก',
+                link: "expenses"
             },
             {
                 title: 'บันทึกการใช้โทรศัพท์อัตโนมัติ',

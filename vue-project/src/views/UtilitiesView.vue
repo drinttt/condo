@@ -18,7 +18,7 @@
 
                     <!-- seach -->
                     <!-- <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field> -->
-                    <div class="v-input my-custom-input">
+                    <div class="v-input my-custom-input mx-4">
                         <input v-model="search" class="v-input__control" placeholder="Search">
                         <span class="v-input__append-inner">
                             <v-icon>mdi-magnify</v-icon>
@@ -26,11 +26,13 @@
                     </div>
 
                     <v-dialog v-model="dialog" max-width="800px">
-                        <template v-slot:activator="{ props }">
+                        <!-- button create -->
+                        <!-- <template v-slot:activator="{ props }">
                             <v-btn color="primary" dark class="mb-1 mt-1" v-bind="props">
                                 Create
                             </v-btn>
-                        </template>
+                        </template> -->
+
                         <!-- Edit/Delete -->
                         <v-card>
                             <v-card-title class="my-2">
@@ -232,6 +234,8 @@ export default {
             protein: 0,
         },
         search: '',
+        selectedYear: null,
+        years: [2021, 2022, 2023, 2024]
     }),
     methods: {
         RoomCreate() {
@@ -410,7 +414,7 @@ export default {
             const roomdata = Object.assign({}, item)
             // console.log(roomdata.room)
             this.$store.commit('rooms/setUtilityRoom', roomdata.room)
-            // console.log(this.$store.state.rooms.dataUtility)
+            // console.log(this.$store.state.rooms.dataUtilityRoom)
 
             //*****
             this.$router.push({

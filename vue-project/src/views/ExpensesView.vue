@@ -8,14 +8,18 @@
     <h1 class="topicinfor">บันทึกค่าใช้จ่ายในตึก</h1>
 
     <v-container grid-list-md>
-        <v-data-table :items-per-page="itemsPerPage" :group-by="groupBy" :search="search" :headers="headers" :items="expensesState" :sort-by="[{ key: 'expenses', order: 'asc' }]" class="elevation-1">
+        <v-data-table :items-per-page="itemsPerPage" :search="search" :headers="headers" :items="filteredExpense" :sort-by="[{ key: 'expenses', order: 'asc' }]" class="elevation-1">
             <template v-slot:top>
                 <v-toolbar flat>
                     <v-toolbar-title>Building Expenses</v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
                     <!-- <v-select class="mt-6 w-5" attach :items="items" placeholder="select Year"></v-select> -->
-                    <v-spacer></v-spacer>
 
+                    <!-- drop-down filter-Year -->
+                    <v-select class="mt-5" style="width: 2px;" v-model="selectedYear" :items="uniqueYears" label="Filter by Year" placeholder="Select Year"></v-select>
+                    <!-- <v-select class="mt-5" style="width: 2px;" v-model="selectedYear" :items="uniqueYears" label="Filter by Year" placeholder="Select Year" @change="updateFilteredExpense"></v-select> -->
+
+                    <v-spacer></v-spacer>
                     <!-- search -->
                     <!-- <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field> -->
                     <div class="v-input my-custom-input">
@@ -73,7 +77,7 @@
                                 <v-btn color="blue-darken-1" variant="text" @click="close">
                                     Cancel
                                 </v-btn>
-                                <v-btn color="blue-darken-1" variant="text" @click="save2">
+                                <v-btn color="blue-darken-1" variant="text" @click="save">
                                     Save
                                 </v-btn>
                             </v-card-actions>
@@ -114,6 +118,9 @@
 import {
     VDataTable
 } from 'vuetify/labs/VDataTable'
+import {
+    mapGetters
+} from 'vuex'
 import NavbarVue from '../components/NavbarMenu.vue'
 
 export default {
@@ -142,6 +149,7 @@ export default {
             key: 'year',
             order: 'asc'
         }],
+        selectedYear: 'All',
 
         informations: [{
                 title: 'ข้อมูลของแต่ละห้อง',
@@ -254,239 +262,8 @@ export default {
         // RoomCreate() {
         //     this.$router.push('/roomcreate')
         // },
-        initialize() {
-            // this.expenses = [{
-            //         year: 2018,
-            //         month: 'มกราคม',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2018,
-            //         month: 'กุมภาพันธ์',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2018,
-            //         month: 'มีนาคม',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2018,
-            //         month: 'เมษายน',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2018,
-            //         month: 'พฤษภาคม',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2018,
-            //         month: 'มิถุนายน',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2018,
-            //         month: 'กรกฎาคม',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2018,
-            //         month: 'สิงหาคม',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2018,
-            //         month: 'กันยายน',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2018,
-            //         month: 'ตุลาคม',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2018,
-            //         month: 'พฤศจิกายน',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2018,
-            //         month: 'ธันวาคม',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     }, {
-            //         year: 2019,
-            //         month: 'มกราคม',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2019,
-            //         month: 'กุมภาพันธ์',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2019,
-            //         month: 'มีนาคม',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2019,
-            //         month: 'เมษายน',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2019,
-            //         month: 'พฤษภาคม',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2019,
-            //         month: 'มิถุนายน',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2019,
-            //         month: 'กรกฎาคม',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2019,
-            //         month: 'สิงหาคม',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2019,
-            //         month: 'กันยายน',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2019,
-            //         month: 'ตุลาคม',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2019,
-            //         month: 'พฤศจิกายน',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2019,
-            //         month: 'ธันวาคม',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            //     {
-            //         year: 2020,
-            //         month: 'ธันวาคม',
-            //         common_fee: 500,
-            //         water_bill: 100,
-            //         electricity_bill: 400,
-            //         repair_cost: 600,
-            //         employee_salary: 20000
-            //     },
-            // ]
-        },
+        initialize() {},
 
-        // editItem(item) {
-        //     this.editedIndex = this.expenses.indexOf(item)
-        //     this.editedItem = Object.assign({}, item)
-        //     this.dialog = true
-        // },
         editItem(item) {
             this.editedIndex = this.$store.state.expenses.expense.indexOf(item)
             this.$store.dispatch('expenses/editIndex', this.editedIndex);
@@ -495,7 +272,7 @@ export default {
             this.dialog = true
         },
 
-        deleteItem(item){
+        deleteItem(item) {
             this.editedIndex = this.$store.state.expenses.expense.indexOf(item);
             this.dialogDelete = true;
         },
@@ -521,15 +298,7 @@ export default {
             })
         },
 
-        // save() {
-        //     if (this.editedIndex > -1) {
-        //         Object.assign(this.expenses[this.editedIndex], this.editedItem)
-        //     } else {
-        //         this.expenses.push(this.editedItem)
-        //     }
-        //     this.close()
-        // },
-        save2() {
+        save() {
             console.log(this.$store.state.expenses.editedIndex)
             if (this.$store.state.expenses.editedIndex > -1) {
                 //edit
@@ -549,7 +318,12 @@ export default {
             }
             // console.log(this.editedIndex)
             this.close()
-        }
+        },
+
+        updateFilteredExpense() {
+            // เรียกเมธอดเพื่ออัปเดตข้อมูล filteredExpense
+            this.$store.commit('expense/updateFilteredExpense', this.selectedYear);
+        },
     },
     computed: {
         formTitle() {
@@ -557,7 +331,26 @@ export default {
         },
         expensesState() {
             return this.$store.state.expenses.expense
-        }
+        },
+        uniqueYears() {
+            // return this.$store.state.expenses.years
+            return this.$store.getters['expenses/uniqueYears'];
+        },
+
+        filteredExpense() {
+            console.log('Hello')
+            if (this.selectedYear === 'All') {
+                return this.$store.state.expenses.expense;
+            } else {
+                return this.$store.state.expenses.expense.filter(
+                    item => item.year == this.selectedYear
+                );
+            }
+
+            // return this.$store.state.expenses.expense.filter(
+            //     item => item.year === this.selectedYear
+            // );
+        },
     },
     watch: {
         dialog(val) {
@@ -568,7 +361,9 @@ export default {
         },
     },
     created() {
-        this.initialize()
+        // this.initialize()
+        // console.log(this.$store.getters['expenses/uniqueYears'])
+        // this.$store.getters['expenses/uniqueYears'];
     },
 }
 </script>
@@ -612,5 +407,10 @@ export default {
 
 .my-custom-input .v-icon {
     margin-right: 4px;
+}
+
+.custom-dropdown {
+    width: 150px;
+    /* ปรับขนาดความกว้างตามต้องการ */
 }
 </style>

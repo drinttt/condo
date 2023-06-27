@@ -32,12 +32,15 @@
 
     <!-- table -->
     <v-container grid-list-md>
-        <v-data-table :items-per-page="itemsPerPage" :search="search" :headers="headers" :items="filteredData" :sort-by="[{ key: 'invoices', order: 'asc' }]" class="elevation-1">
+        <v-data-table :items-per-page="itemsPerPage" :search="search" :headers="headers" :items="filteredUtility" :sort-by="[{ key: 'invoices', order: 'asc' }]" class="elevation-1">
             <template v-slot:top>
                 <v-toolbar flat>
                     <v-toolbar-title>Something</v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
                     <!-- <v-select attach :items="items" placeholder="select from items"></v-select> -->
+                    <v-select class="mt-5" style="width: 2px;" v-model="selectedYear" :items="uniqueYears" label="Filter by Year" placeholder="Select Year"></v-select>
+                    <!-- <v-select class="mt-5" style="width: 2px;" v-model="selectedYear" :items="uniqueYears" label="Filter by Year" placeholder="Select Year" @change="updateFilteredExpense"></v-select> -->
+
                     <v-spacer></v-spacer>
 
                     <!-- seach -->
@@ -149,6 +152,7 @@ export default {
         dialog: false,
         dialogDelete: false,
         editedIndex: -1,
+        selectedYear: 'All',
 
         headers: [{
                 title: 'Year',
@@ -248,7 +252,7 @@ export default {
         },
         save2() {
             // console.log(this.$store.state.invoices.editedIndex)
-            if(this.$store.state.invoices.editedIndex > -1) {
+            if (this.$store.state.invoices.editedIndex > -1) {
                 //edit
                 const updatedItem = {
                     ...this.editedItem
@@ -257,10 +261,11 @@ export default {
                     index: this.editedIndex,
                     updatedItem
                 });
-            }
-            else {
+            } else {
                 //add new
-                const newItem = { ...this.editedItem };
+                const newItem = {
+                    ...this.editedItem
+                };
                 this.$store.dispatch('invoices/addItem', newItem)
             }
             console.log(this.$store.state.invoices.invoice)
@@ -273,7 +278,7 @@ export default {
                 this.editedIndex = -1
             })
         },
-        deleteItem(item){
+        deleteItem(item) {
             this.editedIndex = this.$store.state.invoices.invoice.indexOf(item);
             this.dialogDelete = true;
         },
@@ -312,6 +317,7 @@ export default {
         invoicesState() {
             return this.$store.state.invoices.invoice
         },
+        // filter room ( before filter year )
         filteredData() {
             // const keyword = this.search.toLowerCase();
             // return this.data.filter(item => item.name.toLowerCase() === keyword);
@@ -323,6 +329,31 @@ export default {
             //****
             return this.$store.state.invoices.invoice.filter(item => item.room == keyword);
             // console.log(this.data.filter(item => item.room.toLowerCase() === keyword))
+        },
+        uniqueYears() {
+            // return this.$store.state.expenses.years
+            return this.$store.getters['invoices/uniqueYears'];
+        },
+        filteredUtility() {
+            // console.log('Hello')
+            if (this.selectedYear === 'All') {
+                // return this.$store.state.invoices.invoice;
+                const index = this.$store.state.rooms.dataUtilityIndex
+                const roomData = this.$store.state.rooms.room[index]
+                const keyword = roomData.room
+
+                return this.$store.state.invoices.invoice.filter(item => item.room == keyword);
+            } else {
+                const index = this.$store.state.rooms.dataUtilityIndex
+                const roomData = this.$store.state.rooms.room[index]
+                const keyword = roomData.room
+
+                return this.$store.state.invoices.invoice.filter(item => item.year == this.selectedYear && item.room == keyword);
+            }
+
+            // return this.$store.state.expenses.expense.filter(
+            //     item => item.year === this.selectedYear
+            // );
         },
     },
     watch: {
