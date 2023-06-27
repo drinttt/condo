@@ -1,12 +1,15 @@
 const state = {
     editedIndex: -1,
     editedItem: {},
+
     invoice: [{
         year: 2018,
         month: 'มกราคม',
         room: 101,
         water_unit: 100,
         electric_unit: 400,
+        
+
         // -----------------
         common_fee: 464,
         status: 'not paid',
@@ -179,7 +182,7 @@ const state = {
         water_unit: 100,
         electric_unit: 400,
     },
-    ]
+    ],
 }
   
   const mutations = {
@@ -225,7 +228,13 @@ const state = {
   }
   
   const getters = {
+    //Unique year
+    uniqueYears: state => {
+        const allYears = [...new Set(state.invoice.map(item => item.year))];
+        return ['All', ...allYears];
+    },
   }
+  
   
   export default {
     namespaced: true,
