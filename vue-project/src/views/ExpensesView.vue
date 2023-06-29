@@ -129,69 +129,21 @@ export default {
         NavbarVue,
     },
     data: () => ({
-        // navbar
-        // services: [{
-        //         icon: "mdi-domain",
-        //         title: "Media Monitoring",
-        //         link: "/expenses"
-        //     },
-        //     {
-        //         icon: "mdi-message-text",
-        //         title: "Audience Measurement",
-        //         link: "/expenses"
-        //     },
-        //     {
-        //         icon: "mdi-flag",
-        //         title: "utilities"
-        //     }
-        // ],
+
         groupBy: [{
             key: 'year',
             order: 'asc'
         }],
         selectedYear: 'All',
 
-        informations: [{
-                title: 'ข้อมูลของแต่ละห้อง',
-                link: "rooms"
-            },
-            {
-                title: 'บันทึกค่าใช้จ่ายในตึก',
-                link: "expenses"
-            },
-            {
-                title: 'บันทึกสาธารณูปโภคอัตโนมัติ',
-                link: "utilities"
-            },
-            {
-                title: 'บันทึกการใช้โทรศัพท์อัตโนมัติ',
-                link: "autophones"
-            },
-        ],
-        invoices: [{
-                title: 'ใบแจ้งหนี้',
-                link: 'invoices'
-            },
-            {
-                title: 'ระบบผ่อนชำระ',
-                link: 'installments'
-            },
-        ],
-        secures: [{
-                title: 'ระบบระดับผู้ใช้งาน log เก็บข้อมูล',
-                link: 'userloglevel'
-            },
-            {
-                title: 'ระบบเชื่อมโปรแกรมบัญชี',
-                link: 'accounting'
-            },
-        ],
-
         // searchTerm: '', 
         //vDataTable
         itemsPerPage: 12,
+        expenses: [],
+        search: '',
         dialog: false,
         dialogDelete: false,
+        editedIndex: -1,
 
         headers: [{
                 title: 'Year',
@@ -236,8 +188,6 @@ export default {
                 sortable: false
             },
         ],
-        expenses: [],
-        editedIndex: -1,
         editedItem: {
             year: null,
             month: '',
@@ -256,7 +206,6 @@ export default {
             repair_cost: null,
             employee_salary: null,
         },
-        search: '',
     }),
     methods: {
         // RoomCreate() {
@@ -411,6 +360,5 @@ export default {
 
 .custom-dropdown {
     width: 150px;
-    /* ปรับขนาดความกว้างตามต้องการ */
 }
 </style>

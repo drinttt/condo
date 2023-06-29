@@ -3,6 +3,7 @@ import rooms from './modules/rooms'
 import expenses from './modules/expenses'
 import users from './modules/users'
 import invoices from './modules/invoices'
+import autophones from './modules/autophones'
 
 export default createStore({
   modules: {
@@ -10,6 +11,7 @@ export default createStore({
     expenses,
     invoices,
     users,
+    autophones,
   },
   state: {
     count: 64
