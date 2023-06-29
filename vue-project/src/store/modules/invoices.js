@@ -209,11 +209,15 @@ const state = {
     },
     // ?????
     updateItem({ commit, state }, { updatedItem }) {
-        const invoiceIndex = state.invoice.findIndex(item => item.room === state.editedItem.room);
-        const invoiceYearIndex = state.invoice.findIndex(item => item.year === state.editedItem.year);
-        const invoiceMonthIndex = state.invoice.findIndex(item => item.month === state.editedItem.month);
-        if (invoiceIndex > -1 && invoiceYearIndex > -1 && invoiceMonthIndex > -1) {
+        // const invoiceIndex = state.invoice.findIndex(item => item.room === state.editedItem.room);
+        const invoiceIndex = state.invoice.findIndex(item => item.room === state.editedItem.room && item.year === state.editedItem.year && item.month === state.editedItem.month);
+        // const invoiceYearIndex = state.invoice.findIndex(item => item.year === state.editedItem.year);
+        // const invoiceMonthIndex = state.invoice.findIndex(item => item.month === state.editedItem.month);
+        if (invoiceIndex > -1) {
             commit('updateItem', { index: invoiceIndex, updatedItem });
+        }
+        else {
+            commit('addItem', updatedItem);
         }
     },
     editIndex({ commit }, index) {

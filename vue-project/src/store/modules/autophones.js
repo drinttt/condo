@@ -64,8 +64,12 @@ const actions = {
         // const autophoneStartIndex = state.autophone.findIndex(item => item.timeStart == state.editedItem.timeStart)
         // const autophoneEndIndex = state.autophone.findIndex(item => item.timeEnd == state.editedItem.timeEnd)
 
-        if (autophoneCallerIndex > -1){
+        if (autophoneIndex > -1){
             commit('updateItem', { index: autophoneIndex, updatedItem });
+        }
+        else {
+            // เพิ่มข้อมูลใหม่เมื่อไม่มีปีเดียวกัน
+            commit('addItem', updatedItem);
         }
     },
     setEditedItem({ commit }, item){

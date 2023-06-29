@@ -253,11 +253,14 @@ const state = {
     },
     updateItem({ commit, state}, { updatedItem }) {
         // const expenseIndex = state.expense.findIndex(item => item.expense === state.editedItem.expense)
-        const expenseYearIndex = state.expense.findIndex(item => item.year === state.editedItem.year)
-        const expenseMonthIndex = state.expense.findIndex(item => item.month === state.editedItem.month)
+        const expenseIndex = state.expense.findIndex(item => item.year === state.editedItem.year && item.month === state.editedItem.month)
+        // const expenseMonthIndex = state.expense.findIndex(item => item.month === state.editedItem.month)
         // if (expenseIndex > -1) {
-        if ( expenseYearIndex > -1 && expenseMonthIndex > -1) {
-            commit('updateItem', { index: expenseYearIndex, updatedItem });
+        if ( expenseIndex > -1) {
+            commit('updateItem', { index: expenseIndex, updatedItem });
+        }
+        else {
+            commit('addItem', updatedItem);
         }
     },
     setEditedItem({ commit }, item){
