@@ -187,7 +187,7 @@ export default {
         // searchTerm: '',
 
         //vDataTable
-        itemsPerPage: 8,
+        itemsPerPage: 7,
         dialog: false,
         dialogDelete: false,
 
@@ -235,12 +235,11 @@ export default {
         },
         search: '',
         selectedYear: null,
-        years: [2021, 2022, 2023, 2024]
     }),
     methods: {
-        RoomCreate() {
-            this.$router.push('/roomcreate')
-        },
+        // RoomCreate() {
+        //     this.$router.push('/roomcreate')
+        // },
         initialize() {
             // this.rooms = [{
             //         floors: 1,

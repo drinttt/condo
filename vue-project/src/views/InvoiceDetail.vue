@@ -1,16 +1,14 @@
 <template>
-<v-app class="bg-indigo-lighten-5">
-    <div>
-        <NavbarVue />
-    </div>
-    <!-- <v-icon>mdi-keyboard-backspace</v-icon> -->
+  <v-app class="bg-indigo-lighten-5">
+    <div><NavbarVue /></div>
+
     <h2 class="ml-12">
         <v-icon size="small" class="me-2" @click="back">
             mdi-arrow-left
         </v-icon>
     </h2>
-    <h1 class="topicinfor">รายละเอียดการใช้สาธารณูปโภคอัตโนมัติ</h1>
-    
+    <h1 class="topicinfor">รายละเอียดใบแจ้งหนี้</h1>
+
     <h2 class="topicinfor mt-4"><em style="color: rgb(106, 106, 106);">ข้อมูลลูกค้า</em></h2>
     <v-container class="topicinfor mt-4">
         <p>เลขห้อง: &nbsp;</p>
@@ -31,12 +29,11 @@
         </div>
     </v-container>
 
-    <!-- table -->
     <v-container grid-list-md>
-        <v-data-table :items-per-page="itemsPerPage" :search="search" :headers="headers" :items="filteredUtility" :sort-by="[{ key: 'invoices', order: 'asc' }]" class="elevation-1">
+        <v-data-table :items-per-page="itemsPerPage" :search="search" :headers="headers" :items="filteredInvoice" :sort-by="[{ key: 'invoices', order: 'asc' }]" class="elevation-1">
             <template v-slot:top>
                 <v-toolbar flat>
-                    <v-toolbar-title>Something</v-toolbar-title>
+                    <v-toolbar-title>Invoice</v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
                     <!-- <v-select attach :items="items" placeholder="select from items"></v-select> -->
                     <v-select class="mt-5" style="width: 2px;" v-model="selectedYear" :items="uniqueYears" label="Filter by Year" placeholder="Select Year"></v-select>
@@ -79,10 +76,10 @@
                                             <v-text-field v-model="editedItem.room" label="Room Number"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.water_unit" label="Water Supply (Unit)"></v-text-field>
+                                            <v-text-field v-model="editedItem.dueDate" label="Due Date"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.electric_unit" label="Electric (Unit)"></v-text-field>
+                                            <v-text-field v-model="editedItem.status" label="Status"></v-text-field>
                                         </v-col>
                                         <!-- <v-col cols="12" sm="6" md="4">
                                             <v-text-field v-model="editedItem.tel" label="Tel."></v-text-field>
@@ -129,30 +126,25 @@
             </template>
         </v-data-table>
     </v-container><br />
-</v-app>
+  </v-app>
 </template>
 
 <script>
-import {
-    VDataTable
-} from 'vuetify/labs/VDataTable'
-import {
-    mapGetters
-} from 'vuex';
-import NavbarVue from '../components/NavbarMenu.vue';
-
+import NavbarVue from '../components/NavbarMenu.vue'
+import { VDataTable } from 'vuetify/lib/labs/VDataTable/index.mjs';
+import { mapGetters } from 'vuex';
 export default {
     components: {
         NavbarVue,
         VDataTable,
     },
-    data: () => ({
+    data: ()=> ({
         itemsPerPage: 12,
         invoices: [],
         search: '',
         dialog: false,
         dialogDelete: false,
-        editedIndex: -1,
+        editIndex: -1,
         selectedYear: 'All',
 
         headers: [{
@@ -168,48 +160,41 @@ export default {
                 key: 'room'
             },
             {
-                title: 'Water Supply (Unit)',
-                // align: 'start',
-                // sortable: false,
-                key: 'water_unit',
+                title: 'Due date',
+                key: 'dueDate',
+                // sortable: false
             },
             {
-                title: 'Electric (Unit)',
-                key: 'electric_unit',
-                sortable: false
-            }, //แก้ให้ sort ไม่ได้
+                title: 'Status',
+                // align: 'start',
+                sortable: false,
+                key: 'status',
+            },
             {
                 title: '',
                 key: 'actions',
                 sortable: false
             },
         ],
-
         editedItem: {
             year: null,
             month: '',
             room: null,
-            water_unit: null,
-            electric_unit: null,
+            dueDate: '',
+            status: '',
         },
         defaultItem: {
             year: null,
             month: '',
             room: null,
-            water_unit: null,
-            electric_unit: null,
+            dueDate: '',
+            status: '',
         },
     }),
     methods: {
         back() {
-            this.$router.replace('/utilities')
+            this.$router.replace('/invoices')
         },
-        // editItem(item) {
-        //     this.editedIndex = this.invoices.indexOf(item)
-        //     this.editedItem = Object.assign({}, item)
-        //     this.dialog = true
-        //     console.log(this.invoices.indexOf(item))
-        // },
         editItem(item) {
             this.editedIndex = this.$store.state.invoices.invoice.indexOf(item)
             this.$store.dispatch('invoices/editIndex', this.editedIndex);
@@ -264,31 +249,31 @@ export default {
     computed: {
         ...mapGetters(['roomNumber', 'roomName', 'roomTel']),
         roomNumber() {
-            const index = this.$store.state.rooms.dataUtilityIndex
+            const index = this.$store.state.rooms.dataInvoiceIndex
             const roomData = this.$store.state.rooms.room[index]
             // console.log(roomData.room);
             return roomData.room
         },
         roomName() {
-            const index = this.$store.state.rooms.dataUtilityIndex
+            const index = this.$store.state.rooms.dataInvoiceIndex
             const roomData = this.$store.state.rooms.room[index]
             // console.log(roomData.name);
             return roomData.name
         },
         roomTel() {
-            const index = this.$store.state.rooms.dataUtilityIndex
+            const index = this.$store.state.rooms.dataInvoiceIndex
             const roomData = this.$store.state.rooms.room[index]
             // console.log(roomData.tel);
             return roomData.tel
         },
+
         invoicesState() {
             return this.$store.state.invoices.invoice
         },
-        // filter room ( before filter year )
         filteredData() {
             // const keyword = this.search.toLowerCase();
             // return this.data.filter(item => item.name.toLowerCase() === keyword);
-            const index = this.$store.state.rooms.dataUtilityIndex
+            const index = this.$store.state.rooms.dataInvoiceIndex
             const roomData = this.$store.state.rooms.room[index]
             const keyword = roomData.room
             // console.log(roomData.name)
@@ -301,17 +286,18 @@ export default {
             // return this.$store.state.expenses.years
             return this.$store.getters['invoices/uniqueYears'];
         },
-        filteredUtility() {
+
+        filteredInvoice() {
             // console.log('Hello')
             if (this.selectedYear === 'All') {
                 // return this.$store.state.invoices.invoice;
-                const index = this.$store.state.rooms.dataUtilityIndex
+                const index = this.$store.state.rooms.dataInvoiceIndex
                 const roomData = this.$store.state.rooms.room[index]
                 const keyword = roomData.room
 
                 return this.$store.state.invoices.invoice.filter(item => item.room == keyword);
             } else {
-                const index = this.$store.state.rooms.dataUtilityIndex
+                const index = this.$store.state.rooms.dataInvoiceIndex
                 const roomData = this.$store.state.rooms.room[index]
                 const keyword = roomData.room
 
@@ -331,19 +317,9 @@ export default {
             val || this.closeDelete()
         },
     },
-    created() {
-        // const index = this.$store.state.rooms.dataUtilityIndex
-        // const roomData = this.$store.state.rooms.room[index]
-        // console.log(roomData.name);
-    }
 }
 </script>
 
 <style>
-.topicinfor {
-    display: flex;
-    justify-content: flex-start;
-    /* max-width: 45%; */
-    margin-left: 10%;
-}
+
 </style>

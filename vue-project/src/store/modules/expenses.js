@@ -277,7 +277,8 @@ const state = {
   const getters = {
     //Unique year
     uniqueYears: state => {
-        const allYears = [...new Set(state.expense.map(item => item.year))];
+        // const allYears = [...new Set(state.expense.map(item => item.year))];
+        const allYears = new Set(state.expense.map(item => String(item.year)));
         return ['All', ...allYears];
     },
 

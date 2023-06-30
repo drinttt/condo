@@ -78,9 +78,9 @@ const router = createRouter({
       component: () => import('../views/utilityDetail.vue')
     },
     {
-      path: '/AutoPhoneDetail',
-      name: 'AutoPhoneDetail',
-      component: () => import('../views/AutoPhoneDetail.vue')
+      path: '/invoiceDetail',
+      name: 'invoiceDetail',
+      component: () => import('../views/InvoiceDetail.vue')
     },
   ]
 })

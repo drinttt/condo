@@ -29,7 +29,7 @@
 
                     <!-- seach -->
                     <!-- <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field> -->
-                    <div class="v-input my-custom-input">
+                    <div class="v-input my-custom-input mx-4">
                         <input v-model="search" class="v-input__control" placeholder="Search">
                         <span class="v-input__append-inner">
                             <v-icon>mdi-magnify</v-icon>
@@ -37,11 +37,11 @@
                     </div>
 
                     <v-dialog v-model="dialog" max-width="800px">
-                        <template v-slot:activator="{ props }">
+                        <!-- <template v-slot:activator="{ props }">
                             <v-btn color="primary" dark class="mb-1 mt-1" v-bind="props">
                                 Create
                             </v-btn>
-                        </template>
+                        </template> -->
                         <!-- Edit/Delete -->
                         <v-card>
                             <v-card-title>
@@ -64,15 +64,6 @@
                                         <v-col cols="12" sm="6" md="4">
                                             <v-text-field v-model="editedItem.tel" label="Tel."></v-text-field>
                                         </v-col>
-                                        <!-- <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                                            </v-col> -->
                                     </v-row>
                                 </v-container>
                             </v-card-text>
@@ -106,7 +97,7 @@
             <template v-slot:item.actions="{ item }">
                 <!-- <v-btn size="small" class="mx-1 text-left" @click="editItem(item.raw)" color="success">edit</v-btn>
                     <v-btn size="small" color="error" @click="deleteItem(item.raw)">delete</v-btn> -->
-                <v-icon size="small" class="me-2" @click="editItem(item.raw)">
+                <v-icon size="small" class="me-2" @click="more(item.raw)">
                     mdi-dots-vertical
                 </v-icon>
                 <!-- <v-icon size="small" @click="deleteItem(item.raw)">
@@ -134,132 +125,7 @@ export default {
         NavbarVue,
     },
     data: () => ({
-        // navbar
-        services: [{
-                icon: "mdi-domain",
-                title: "Media Monitoring",
-                link: "/rooms"
-            },
-            {
-                icon: "mdi-message-text",
-                title: "Audience Measurement",
-                link: "/expenses"
-            },
-            {
-                icon: "mdi-flag",
-                title: "utilities"
-            }
-        ],
-
-        informations: [{
-                title: 'ข้อมูลของแต่ละห้อง',
-                link: "rooms"
-            },
-            {
-                title: 'บันทึกค่าใช้จ่ายในตึก',
-                link: "expenses"
-            },
-            {
-                title: 'บันทึกสาธารณูปโภคอัตโนมัติ',
-                link: "utilities"
-            },
-            {
-                title: 'บันทึกการใช้โทรศัพท์อัตโนมัติ',
-                link: "autophones"
-            },
-        ],
-        invoices: [{
-                title: 'ใบแจ้งหนี้',
-                link: 'invoices'
-            },
-            {
-                title: 'ระบบผ่อนชำระ',
-                link: 'installments'
-            },
-        ],
-        secures: [{
-                title: 'ระบบระดับผู้ใช้งาน log เก็บข้อมูล',
-                link: 'userloglevel'
-            },
-            {
-                title: 'ระบบเชื่อมโปรแกรมบัญชี',
-                link: 'accounting'
-            },
-        ],
-        // Infor_room
-        // rooms: [{
-        //         room_number: "001",
-        //         name: "Harry Riddle",
-        //         tel: "0835678543"
-        //     },
-        //     {
-        //         room_number: "002",
-        //         name: "Ron Potter",
-        //         tel: "0667654327"
-        //     },
-        //     {
-        //         room_number: "003",
-        //         name: "Anna Yeeha",
-        //         tel: "0835678543"
-        //     },
-        //     {
-        //         room_number: "004",
-        //         name: "Spice Girl",
-        //         tel: "0667654327"
-        //     },
-        //     {
-        //         room_number: "005",
-        //         name: "Taylor perry",
-        //         tel: "0835678543"
-        //     },
-        //     {
-        //         room_number: "006",
-        //         name: "Robert Prattrick",
-        //         tel: "0667654327"
-        //     },
-        //     {
-        //         room_number: "007",
-        //         name: "Irene Rvv",
-        //         tel: "0835678543"
-        //     },
-        //     {
-        //         room_number: "010",
-        //         name: "Suelgi Rvv",
-        //         tel: "0667654327"
-        //     },
-        //     {
-        //         room_number: "008",
-        //         name: "Wendy Rvv",
-        //         tel: "0667654327"
-        //     },
-        //     {
-        //         room_number: "009",
-        //         name: "Joy Rvv",
-        //         tel: "0835678543"
-        //     },
-        //     {
-        //         room_number: "011",
-        //         name: "Yeri Rvv",
-        //         tel: "0835678543"
-        //     },
-        //     {
-        //         room_number: "012",
-        //         name: "Taeyoen Girl",
-        //         tel: "0667654327"
-        //     },
-        //     {
-        //         room_number: "013",
-        //         name: "Wonyong Ive",
-        //         tel: "0835678543"
-        //     },
-        //     {
-        //         room_number: "014",
-        //         name: "Ruby Jane",
-        //         tel: "0667654327"
-        //     },
-        // ],
-        searchTerm: '',
-        itemsPerPage: 8,
+        itemsPerPage: 7,
         dialog: false,
         dialogDelete: false,
 
@@ -308,9 +174,9 @@ export default {
         search: '',
     }),
     methods: {
-        RoomCreate() {
-            this.$router.push('/roomcreate')
-        },
+        // RoomCreate() {
+        //     this.$router.push('/roomcreate')
+        // },
         initialize() {
             // this.rooms = [{
             //         floors: 1,
@@ -475,6 +341,20 @@ export default {
             }
             this.close()
         },
+
+        more(item) {
+            const index = this.$store.state.rooms.room.indexOf(item)
+            this.$store.commit('rooms/setInvoiceIndex', index)
+
+            const roomdata = Object.assign({}, item)
+
+            this.$store.commit('rooms/setInvoiceRoom', roomdata.room)
+
+            // console.log(this.$store.state.rooms.dataInvoiceIndex)
+            this.$router.push({
+                name: 'invoiceDetail'
+            })
+        },
     },
     computed: {
         formTitle() {
@@ -524,8 +404,8 @@ export default {
     } */
 
 .topicinfor {
-    /* display: flex; */
-    /* justify-content: flex-start; */
+    display: flex;
+    justify-content: flex-start;
     /* max-width: 45%; */
     margin-left: 10%;
 }
@@ -533,5 +413,27 @@ export default {
 .dropdown {
     text-decoration: none;
     color: rgb(94, 94, 94);
+}
+
+/* search */
+.my-custom-input {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.26);
+    border-radius: 4px;
+    padding: 4px;
+    height: 36px;
+    width: 20px;
+}
+
+.my-custom-input input {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    padding: 4px 8px;
+}
+
+.my-custom-input .v-icon {
+    margin-right: 4px;
 }
 </style>

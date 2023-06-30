@@ -3,9 +3,14 @@ const state = {
     editedIndex: -1,
     editedItem: {},
     filterYear: null,
+
     //Utility
     dataUtilityRoom: null,
     dataUtilityIndex: null,
+
+    //invoice
+    dataInvoiceIndex: null,
+    dataInvoiceRoom: null,
 
     room: [{
         floors: 1,
@@ -146,19 +151,20 @@ const mutations = {
     },
 
     //Utility
-    setUtilityRoom(state, payload) {
-        state.dataUtilityRoom = payload
-    },
     setUtilityIndex(state, index) {
         state.dataUtilityIndex = index
     },
-    //AutoPhone
-    // setAutoPhoneRoom(state, payload) {
-    //     state.dataAutoPhoneRoom = payload
-    // },
-    // setAutoPhoneIndex(state, index) {
-    //     state.dataAutoPhoneIndex = index
-    // },
+    setUtilityRoom(state, payload) {
+        state.dataUtilityRoom = payload
+    },
+
+    //Invoice
+    setInvoiceIndex(state, index) {
+        state.dataInvoiceIndex = index
+    },
+    setInvoiceRoom(state, payload) {
+        state.dataInvoiceRoom = payload
+    },
 }
   
   

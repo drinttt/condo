@@ -118,7 +118,7 @@ export default {
         // searchTerm: '',
 
         //vDataTable
-        itemsPerPage: 8,
+        itemsPerPage: 7,
         dialog: false,
         dialogDelete: false,
 

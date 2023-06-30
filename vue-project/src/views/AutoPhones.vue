@@ -151,7 +151,7 @@ export default {
                 sortable: false
             },
         ],
-        itemsPerPage: 12,
+        itemsPerPage: 7,
         dialog: false,
         dialogDelete: false,
         editedIndex: -1,

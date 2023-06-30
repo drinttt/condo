@@ -118,9 +118,7 @@
 import {
     VDataTable
 } from 'vuetify/labs/VDataTable'
-import {
-    mapGetters
-} from 'vuex'
+
 import NavbarVue from '../components/NavbarMenu.vue'
 
 export default {
@@ -138,7 +136,7 @@ export default {
 
         // searchTerm: '', 
         //vDataTable
-        itemsPerPage: 12,
+        itemsPerPage: 7,
         expenses: [],
         search: '',
         dialog: false,
