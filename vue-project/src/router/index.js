@@ -81,7 +81,7 @@ const router = createRouter({
       path: '/invoiceDetail',
       name: 'invoiceDetail',
       component: () => import('../views/InvoiceDetail.vue')
-    },
+    }
   ]
 })
 

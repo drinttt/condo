@@ -11,7 +11,7 @@ export default createStore({
     expenses,
     invoices,
     users,
-    autophones,
+    autophones
   },
   state: {
     count: 64
@@ -24,7 +24,6 @@ export default createStore({
 // import { createStore } from 'vuex'
 // // import Vuex from 'vuex'
 // import rooms from './modules/roomsObj'
-
 
 // export default createStore({
 //   modules: {

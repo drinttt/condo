@@ -5,7 +5,6 @@ import { createPinia } from 'pinia'
 // import { fas } from '@fortawesome/free-solid-svg-icons'
 // import { fab } from '@fortawesome/free-brands-svg-icons'
 
-
 import App from './App.vue'
 import router from './router'
 
@@ -22,14 +21,9 @@ import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/dist/vuetify.min.css'
 import store from './store'
 
-
-
-
 const vuetify = createVuetify({
   components,
-  directives,
-
-  
+  directives
 })
 
 // library.add(fas, fab)
